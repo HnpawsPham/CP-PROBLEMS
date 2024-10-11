@@ -4,6 +4,30 @@ using namespace std;
 
 string str;
 
+bool checkSum (string s, int n){
+    int sum = 0, d = 1, pos;
+    string ss = "";
+
+    for(int i = 0; i < n;i++){
+        if(!isdigit(s[i])){
+            if(!ss.empty()) sum += stoi(ss) * d;
+            ss = "";
+
+            if(s[i] == '-') d = -1;
+            else if(s[i] == '+') d = 1;
+            else {
+                if(!ss.empty()) sum += stoi(ss) * d;
+                pos = i + 1;
+                break;
+            }
+        } else ss += s[i];
+    }
+    for(int i = pos; i < n; i++){
+        ss += s[i];
+    }
+    return sum == stoi(ss);
+}
+
 int solve(int l, int prev, int i, int num){
     int x = stoi(str.substr(l, prev - l + 1));
     int y = stoi(str.substr(prev + 1, i - prev));
@@ -30,7 +54,8 @@ int main(){
         return 0;
     }
 
-    solve(0, 0, 1, 2);
+    cout<<checkSum("11+22=34233", 11)<<el;
+    // solve(0, 0, 1, 2);
 
 
     return 0;
