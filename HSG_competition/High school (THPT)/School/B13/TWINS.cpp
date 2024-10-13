@@ -8,8 +8,9 @@ int p[maxn], s[maxn] = {0};
 int t;
 
 bool checkTwin(int x){
+    if (a[x]) return false;
     string ss = to_string(x);
-    ss.reserve();
+    reverse(ss.begin(), ss.end());
     int rx = stoi(ss);
     return !a[rx] && rx != x && rx > 9;
 }
@@ -47,8 +48,7 @@ int main(){
         int l, r;
         cin>>l>>r;
 
-        cout<<p[r] - p[l - 1]<<el;
-        cout<<s[r] - s[l - 1]<<el;
+        cout<<p[r] - p[l - 1]<<" "<<s[r] - s[l - 1]<<el;
     }
     
     return 0;
