@@ -7,6 +7,10 @@ using ll = long long;
 int n;
 ll s, cnt = 0;
 
+void bitmask(){
+    return;
+}
+
 int main(){
     freopen(".\\txt\\DOOR.INP", "r", stdin);
     ios::sync_with_stdio(0);
