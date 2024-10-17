@@ -20,7 +20,9 @@ int main(){
     cin.tie(0);
     cout.tie(0);
 
-    bin(3);
+    // bin(3);
+    bitset<10> b("0000");
+    cout<<b.count()<<el;
 
     return 0;
 }
