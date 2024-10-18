@@ -4,7 +4,7 @@ using namespace std;
 #define bit(mask, i) ((mask >> i)&1)
 
 const int m = 4;
-int n;
+int n, res = 0;
 
 int main(){
     ios::sync_with_stdio(0);
@@ -16,6 +16,15 @@ int main(){
     
     for(int i = 0; i < m;i++)
         for(int j = 0; j < n;j++) cin>>a[i][j];
+
+    for(int i = 0; i <16;i++){
+        int sum = 0;
+        for(int j = 0; j < 3; j++){
+            if(bit(i, j)) sum += a[i][j];
+        }
+        res = max(res, sum);
+    }
+    cout<<res<<el;
 
     return 0;
 }
