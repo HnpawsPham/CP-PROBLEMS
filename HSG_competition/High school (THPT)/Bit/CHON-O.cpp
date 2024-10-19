@@ -17,14 +17,12 @@ int main(){
     for(int i = 0; i < m;i++)
         for(int j = 0; j < n;j++) cin>>a[i][j];
 
-    for(int i = 0; i <16;i++){
-        int sum = 0;
+    for(int i = 1; i < 15;i++){
+        bool ok = true;
         for(int j = 0; j < 3; j++){
-            if(bit(i, j)) sum += a[i][j];
+            if(bit(i, j) && bit(i, j + 1)) ok = false; 
         }
-        res = max(res, sum);
     }
     cout<<res<<el;
-
     return 0;
 }
