@@ -26,8 +26,19 @@ int main(){
 
     for(int i = 1; i<=n;i++)
         for(int j = 1; j<=m;j++) cin>>a[i][j];
-    cin>>t;
 
+    int h01[n + 1][m + 1], h12[n + 1][m + 1];
+    for(int j = 0; j <=m;j++)
+        h01[0][j] = h12[0][j] = 0;
+
+    for(int i = 1; i<=n;i++)
+        for(int j = 1; j <=m; j++){
+            h01[i][j] = h12[i][j] = 0;
+            if(a[i][j] < 2) h01[i][j] = h01[i - 1][j] + 1;
+            if(a[i][j] > 0) h12[i][j] = h12[i - 1][j] + 1;
+        }
+
+    cin>>t;
     while(t--){
         int u, d;
         cin>>u>>d;

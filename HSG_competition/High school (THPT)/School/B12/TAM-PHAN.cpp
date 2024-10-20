@@ -19,7 +19,17 @@ int main(){
     cout.tie(0);
 
     cin>>n;
-    cout<<customPow(3, n) - 1<<el;
+    ll dp[n + 1][3];
+    dp[1][0] = 1;
+    dp[1][1] = 1;
+    dp[1][2] = 1;
+
+    for(int i = 2; i <=n; i++){
+        ll t = (dp[i - 1][0] + dp[i - 1][1] + dp[i - 1][2]) % MOD;
+        dp[i][0] = dp[i][2] = t;
+        dp[i][1] = t - dp[i - 1][1];
+    }
+    cout<<dp[n][0] + dp[n][1] + dp[n][2]<<el;
 
     return 0;
 }
