@@ -28,10 +28,7 @@ bool bfs(int u)
                 check[t] = true;
                 parent[t] = v;
             }
-            else if (t != parent[v])
-            {
-                return true;
-            }
+            else if (t != parent[v]) return true;
         }
     }
 
@@ -44,19 +41,13 @@ bool dfs(int u)
 
     for (auto v : a[u])
     {
-        if (v == y)
-        {
-            continue;
-        }
+        if (v == y) continue;
 
         if (!check[v])
         {
             parent[v] = u;
 
-            if (dfs(v))
-            {
-                return true;
-            }
+            if (dfs(v)) return true;
         }
         else if (v != parent[u])
         {
