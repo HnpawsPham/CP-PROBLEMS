@@ -10,13 +10,11 @@ void makeSet(){
         parent[i] = i;
         psize[i]++;
     }
+    return;
 }
 
 int find(int x){
-    if(parent[x] == x){
-        return x;
-    }
-
+    if(parent[x] == x) return x;
     return parent[x] = find(parent[x]);
 }
 
@@ -32,6 +30,7 @@ void unionSet(int a, int b){
         parent[b] = a;
         psize[b] += psize[a];
     }
+    return;
 }
 
 int main(){
