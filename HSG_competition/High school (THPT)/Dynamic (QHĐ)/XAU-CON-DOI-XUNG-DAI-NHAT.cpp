@@ -16,23 +16,15 @@ int main()
     int maxlen = 0;
 
     for (int len = 1; len <= n; len++)
-    {
-        for (int i = 0; i <= n - len; i++)
-        {
+        for (int i = 0; i <= n - len; i++){
             int j = i + len - 1;
 
-            if(len == 1 || (len == 2 && str[i] == str[j])){
-                dp[i][j] = true;
-            }
-            else{
-                dp[i][j] = (dp[i + 1][j - 1] && str[i] == str[j]);
-            }
-
-            if(dp[i][j]){
-                maxlen = max(maxlen, len);
-            }
+            if(len == 1 || (len == 2 && str[i] == str[j])) dp[i][j] = true;
+            
+            else dp[i][j] = (dp[i + 1][j - 1] && str[i] == str[j]);
+        
+            if(dp[i][j]) maxlen = max(maxlen, len);
         }
-    }
 
     cout<<maxlen<<endl;
 

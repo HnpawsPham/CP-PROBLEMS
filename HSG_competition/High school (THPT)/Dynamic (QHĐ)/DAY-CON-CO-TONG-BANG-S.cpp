@@ -12,20 +12,14 @@ int main()
     cin >> n >> s;
     vector<int> a(n), dp(s + 1, 0);
 
-    for(auto& x : a){
-        cin>>x;
-    }
-
+    for(auto& x : a) cin>>x;
+    
     dp[0] = 1;
 
     for (int i = 0; i < n; i++)
-    {
         for (int j = s; j >= a[i]; j--)
-        {
             dp[j] += dp[j - a[i]];
-        }
-    }
-
+        
     cout << dp[s] << endl;
 
     return 0;

@@ -185,16 +185,130 @@ void bellmanFord(){
 // TARJAN
 int id = 0;
 int index[maxn], low[maxn];
-vector<int> tjpath;
+stack<int> tjpath;
 
 void tarjan(int u){
-    tjpath.push_back(u);
+    tjpath.push(u);
     check[u] = true;
     low[u] = index[u] = id++;
 
     for(int v : a[u]){
-       
+        if(index[v] == 0){
+            tarjan(v);
+            low[v] = min(low[u], low[v]);
+        }
+        else if(check[v]){
+            low[u] = min(low[u], index[v]);
+        }
     }
+
+    if(index[u] == low[u]){
+        while(true){
+            int v = tjpath.top(); tjpath.pop();
+
+            low[v] = low[u];
+            check[v] = 0;
+
+            if(v == u) break;
+        }
+    }
+    return;
+}
+
+// DSU
+int n = 10;
+int dsuParent[maxn];
+int sz[maxn];
+
+void makeSet(){
+    for(int i = 1; i <=n;i++){
+        dsuParent[i] = i;
+        sz[i] = 1;        
+    }
+    return;
+}
+
+int find(int x){
+    if(x == dsuParent[x]) return x;
+    return dsuParent[x] = find(dsuParent[x]);
+}
+
+bool unionSet(int a, int b){
+    a = find(a);
+    b = find(b);
+
+    if(a == b) return false;
+    if(sz[a] < sz[b]) swap(a, b);
+    dsuParent[b] = a;
+    sz[a] += sz[b];
+    sz[b] = 0;
+
+    return true;
+}
+
+// KRUSKAL
+bool compare(line a, line b){
+    return a.w < b.w;
+}
+
+vector<line> ka;
+void kruskal(){
+    int m = 10;
+    vector<line> mst;
+    int msize = 0;
+
+    sort(a.begin(), a.end(), compare);
+
+    for(int i = 0; i < m;i++){
+        if(mst.size() == n - 1) break;
+
+        if(unionSet(ka[i].u, ka[i].v)){
+            mst.push_back(ka[i]);
+            msize += ka[i].w;
+        }
+    }
+
+    if(mst.size() != n - 1) return;
+
+    for(line l : mst) cout<<l.u<<" "<<l.v<<el;
+    return;
+}
+
+// CANH CAU
+vector<pii> ans;
+
+void canhcau(int u, int parent){
+    low[u] = index[u] = id++;
+
+    for(int v : a[u]){
+        if(!index[v]){
+            canhcau(v, u);
+            low[v] = min(low[v], low[u]);
+
+            if(low[v] > index[u]) ans.push_back({u, v});
+        }
+        else if(v != parent)
+            low[u] = min(low[u], index[v]);
+    }
+    return;
+}
+
+// KIEM TRA DINH KHOP
+vector<int> res;
+void khop(int u, int parent){
+    index[u] = low[u] = id++;
+    
+    for(int v : a[u]){
+        if(!index[v]){
+            khop(v, u);
+            low[v] = min(low[v], low[u]);
+
+            if(parent != 0 && low[v] >= index[u]) res.push_back(u);
+        }
+        else if(v != parent) low[u] = min(low[u], index[v]);
+    }
+
+    if(parent == 0 && res.size() > 1) res.push_back(u);
     return;
 }
 
