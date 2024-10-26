@@ -21,22 +21,18 @@ int find(int x){
     return parent[x] = find(parent[x]);
 }
 
-void unionSet(int a, int b, int w){
+bool unionSet(int a, int b, int w){
     a = find(a);
     b = find(b);
 
-    if(a == b) return;    
+    if(a == b) return false;    
     if(sz[a] < sz[b]) swap(a, b);
 
     parent[b] = a;
     sz[a] += sz[b];
     sz[b] = 0;
-
-    int t = cyc[a].size() - 1;
-    if (t > 0) cyc[a][t] = min(cyc[a][t], w);
-    else cyc[a].push_back(w);
     
-    return;
+    return true;
 }
 
 int main(){
@@ -52,16 +48,21 @@ int main(){
     while(m--){
         int u, v, w;
         cin>>u>>v>>w;
-        
-        unionSet(u, v, w);
-        if(find(u) == find(v)){
-            cout<<u<<" "<<v<<el;
-            if(!cyc[u].empty()){
-                cout<<u<<": ";
-                for(int x : cyc[u]) cout<<x<<" ";
-                cout<<el;
+
+        if(!unionSet(u, v, w))
+            cyc[find(u)].back() = min(cyc[find(u)].back(), w);
+        else cyc[find(u)].push_back(w);
+    }
+
+    for(int i = 1; i <=n;i++) cout<<i<<": "<<parent[i]<<el;
+
+    for(vector<int> v : cyc){
+        if(!v.empty()){
+            for(int x : v) {
+                cout<<x<<" ";
+                sum += x;
             }
-            if(!cyc[u].empty()) sum += cyc[u][cyc[u].size() - 1];
+            cout<<el;
         }
     }
 
