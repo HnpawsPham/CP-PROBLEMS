@@ -18,7 +18,7 @@ int main(){
     sort(a, a + n);
 
     bool check[n] = {0};
-    ll sum = 0, last = -LLONG_MAX;
+    ll sum = 0, last = 0;
 
     for(int i = 0;i<n;i++){
         int pos = lower_bound(a, a + n, a[i] + k) - a;
@@ -32,12 +32,14 @@ int main(){
 
         int pos1 = lower_bound(a, a + n, last + k) - a;
 
-        if(a[pos1] - last < a[pos] - a[i])  swap(pos, pos1);
-        check[pos] = 1;
-        check[pos1] = 0;
-        last = a[pos];
-        
-        check[i] = 1;
+        if(a[pos1] - last < a[pos] - a[i] || i == 0) {
+            check[pos1] = 1;
+            last = a[pos1];
+        }
+        else{
+            check[pos] = check[i] = 1;
+            last = a[i];
+        }
     }
     for(int i = 0;i<n;i++) 
         if(!check[i]) sum += a[i];
