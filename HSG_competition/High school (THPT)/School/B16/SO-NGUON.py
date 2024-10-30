@@ -9,7 +9,8 @@ if n < 10:
     exit()
 
 res = -1
-for i in reversed(range(n - 900, n)):
+limit = min([900, n - 1])
+for i in reversed(range(n - limit, n)):
     t = i
     sum = i
     while(i > 0):
