@@ -6,29 +6,37 @@ int n, m, res = 0;
 const int maxn = 5;
 int a[maxn][maxn];
 
-void solve(int sum, int r, int c){
-    if(r == n && c == m){;
-        res = max(res, sum);
-        return;
+void solve(int sum, vector<vector<bool>> check){
+    bool ok = false;
+
+    for(int i = 0;i <n;i++){
+        for(int j =0;j<m;j++){
+            if(check[i][j]) continue;
+            ok = true;
+
+            int sumi = 0;
+            for(int y = i; y < n && !check[y][j]; y++){
+                sumi = sumi * 10 + a[y][j];
+                check[y][j] = 1;
+            }
+            solve(sum + sumi, check);
+            
+            for(int y = i; y < n && check[y][j]; y++) check[y][j] = 0;
+
+            int sumj = 0;
+            for(int x = j; x < m && !check[i][x]; x++){
+                sumj = sumj * 10 + a[i][x];
+                check[i][x] = 1;
+            }
+            solve(sum + sumj, check);
+
+            for(int x = j; x < m && check[i][x]; x++) check[i][x] = 0;
+
+            return;
+        }
     }
 
-    for(int i = r + 1; i <= n; i++){
-        string s = "";
-        for(int j = 0; j < i; j++) s+= to_string(a[j][c]);
-        // cout<<s<<el;
-    
-        solve(sum + stoi(s), i, c); 
-    }
-
-    if(r < n)
-    for(int j = c + 1; j <= m; j++){
-        string s = "";
-        for(int i = 0; i < j; i++) s += to_string(a[r][i]); 
-        cout<<"r: "<<r<<" sum: "<<sum<<" s: "<<s<<el;
-  
-        solve(sum + stoi(s), r, j);
-    }
-
+    if(!ok) res = max(res, sum);
     return;
 }
 
@@ -42,7 +50,8 @@ int main(){
     for(int i=0;i<n;i++)
         for(int j = 0; j <m;j++) cin>>a[i][j];
 
-    solve(0, 0, 0);
+    vector<vector<bool>> check(n, vector<bool>(m, 0));
+    solve(0, check);
     cout<<res<<el;
 
     return 0;
