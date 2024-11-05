@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define el "\n"
+#define pii pair<int, int>
 
 int n;
 
@@ -11,23 +12,26 @@ int main(){
     cout.tie(0);
 
     cin>>n;
-    int cnt = 0, last = 0;
-    int a[n];
-    bool check[n] = {false};
-    for(int i = 0; i < n;i++) cin>>a[i];
+    priority_queue<pii, vector<pii>, greater<pii>> pq;
+    bool check[n + 2] = {0};
 
-    while(true){
-        int pos = lower_bound(a, a + n, last) - a;
+    for(int i = 1;i <=n;i++){
+        int x;
+        cin>>x;
+        pq.push({x, i});
+    }
 
-        while(pos < n && check[pos]) pos++;
-        if(pos == n || check[pos]) break;
+    int cnt = 0;
+    while(!pq.empty()){
+        pii cur = pq.top(); pq.pop();
+        int pos = cur.second;
         
-        last = a[pos];
-        check[pos] = 1;
-        if (pos - 1 >= 0) check[pos - 1] = 1; 
-        if (pos + 1 < n) check[pos + 1] = 1; 
-        cnt++;
+        if(!check[pos]){
+            check[pos] = check[pos - 1] = check[pos + 1] = 1;
+            cnt++;
+        }
     }
     cout<<cnt<<el;
+
     return 0;
 }

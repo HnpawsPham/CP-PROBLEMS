@@ -46,7 +46,7 @@ void dfs(int u)
     check[u] = 1;
     path.push_back(u);
 
-    for (auto v : a[u])
+    for (auto v : a[u]) 
     {
         if (check[v] == 0)
         {
