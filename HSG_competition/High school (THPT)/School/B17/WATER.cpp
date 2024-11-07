@@ -5,23 +5,6 @@ using namespace std;
 int n, m, cnt = 0;
 const int maxn = 1005;
 int a[maxn][maxn];
-bool check[maxn][maxn];
-
-int dy[] = {-1, 0, 0, 1},
-    dx[] = {0, 1, -1, 0};
-
-void dfs(int i, int j){
-    check[i][j] = 1;
-
-    for(int x = 0; x < 4; x++){
-        int i1 = i + dy[x];
-        int j1 = j + dx[x];
-
-        if(i1 < 0 || i1 >= n || j1 < 0 || j1 >= m || check[i1][j1] || a[i1][j1] != a[i][j]) continue;
-        dfs(i1, j1);
-    }
-    return;
-}
 
 int main(){
     freopen(".\\txt\\WATER.INP", "r", stdin);
@@ -30,8 +13,20 @@ int main(){
     cout.tie(0);
 
     cin>>n>>m;
-    for(int i = 0;i<n;i++)
-        for(int j = 0;j<m;j++) cin>>a[i][j];
+    for(int i = 1;i<=n;i++)
+        for(int j = 1;j<=m;j++) cin>>a[i][j];
+        
 
+    int sum = 0;
+    for(int j = 1;j<=m;j++)
+        for(int i=1;i<n;i++){
+        sum += max(a[i + 1][j], a[i][j]) - min(a[i][j], a[i + 1][j]);
+    }
+
+    for(int i = 1;i<=n;i++)
+        for(int j = 1;j < m;j++)
+        sum += max(a[i][j], a[i][j + 1]) - min(a[i][j], a[i][j + 1]);
+
+    cout<<sum<<el;
     return 0;
 }

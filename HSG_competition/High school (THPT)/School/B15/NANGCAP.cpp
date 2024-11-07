@@ -7,25 +7,35 @@ int n, m, sum;
 const int maxn = 10005;
 vector<vector<pii>> a(maxn);
 bool check[maxn];
-int parent[maxn];
+bool ok = 0;
+vector<pii> c;
 
-void dfs(int u){
+void dfs(int u, int minn, pii minc){
     check[u] = 1;
 
     for(pii x : a[u]){
+        int w = x.first;
         int v = x.second;
-        
-        if(!check[v]){
-            parent[v] = u;
-            dfs(v);
+
+        if(!check[v]) {
+            dfs(v, minn, minc);
         }
-        else if(check[v]){
-            int minn = INT_MAX;
-            int en = v, st = u;
-            while(en != st){
-                minn = min(minn, cur.second);
+        else {
+            if(w < minn){
+                minn = w;
+                minc = {u, v};
             }
+            ok = 1;
         }
+    }
+
+    if(ok){
+        auto it = find(c.begin(), c.end(), minc);
+
+        if(it != c.end()) return;
+        sum += minn;
+        ok = 0;
+        c.push_back(minc);
     }
     return;
 }
@@ -44,6 +54,8 @@ int main(){
         a[u].push_back({w, v});
         a[v].push_back({w, u});
     }
+    dfs(1, INT_MAX, {0, 0});
+    cout<<sum<<el;
 
     return 0;
 }
