@@ -6,6 +6,7 @@ int n;
 const int maxn = (int)1e5 + 5;
 vector<vector<int>> a(maxn);
 int subsz[maxn];
+char res[maxn];
 
 int getSubsz(int u, int parent){
     int &sz = subsz[u];
@@ -27,6 +28,14 @@ int getCen(int u, int parent){
     return u;
 }
 
+void calc(int cen, int val){
+    cout<<char('A' + val)<<el;
+    res[cen] = char('A' + val);
+    if(cen > 1) calc(cen / 2, val + 1);
+    if(cen * 2 <= n) calc(cen * 2, val + 1);
+    return;
+}
+
 int main(){
     freopen(".\\txt\\GIAM-SAT-VUONG-QUOC.INP", "r", stdin);
     ios::sync_with_stdio(0);
@@ -42,9 +51,10 @@ int main(){
     }
 
     getSubsz(1, 0);
-    
-    for(int i=1;i<=n;i++) cout<<subsz[i]<<" "; cout<<el;
-    cout<<getCen(1, 0)<<el;
+    int cen = getCen(1, 0);
+    calc(cen, 0);
+
+    for(int i =1;i<=n;i++) cout<<res[i]<<" ";
 
     return 0;
 }
