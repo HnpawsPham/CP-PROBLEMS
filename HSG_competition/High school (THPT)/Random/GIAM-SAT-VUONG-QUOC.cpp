@@ -6,34 +6,59 @@ int n;
 const int maxn = (int)1e5 + 5;
 vector<vector<int>> a(maxn);
 int subsz[maxn];
+bool check[maxn], isCen[maxn];
 char res[maxn];
 
-int getSubsz(int u, int parent){
-    int &sz = subsz[u];
-    sz = 1;
+int getSz(int u){
+    int sz = 1;
+    check[u] = 1;
+    subsz[u] =1;
 
     for(int v : a[u]){
-        if(v == parent) continue;
-        sz += getSubsz(v, u);
+        if(check[v] || isCen[v]) continue;
+        sz += getSz(v);
+        subsz[u] += subsz[v];
     }
+
     return sz;
 }
 
-int getCen(int u, int parent){
-    for(int v : a[u]){
-        if(v == parent) continue;
+int initCen(int u, int p){
+    bool ok = 1;
+    check[u] = 1;
+    int maxx = -1;
 
-        if(subsz[v] * 2 > n) return getCen(v, u);
+    for(int v : a[u]){
+        if(check[v] || isCen[v]) continue;
+
+        if(subsz[v] > p / 2) ok = 0;
+        if(maxx == -1 || subsz[v] > subsz[maxx]) maxx = v;
     }
-    return u;
+
+    if(ok && p - subsz[u] <= p / 2) return u;
+    return initCen(maxx, p);
 }
 
-void calc(int cen, int val){
-    cout<<char('A' + val)<<el;
-    res[cen] = char('A' + val);
-    if(cen > 1) calc(cen / 2, val + 1);
-    if(cen * 2 <= n) calc(cen * 2, val + 1);
-    return;
+int getCen(int u){
+    memset(check, 0, sizeof(check));
+    memset(subsz, 0, sizeof(subsz));
+
+    int p = getSz(u);
+    memset(check, 0, sizeof(check));
+
+    int cen = initCen(u, p);
+    isCen[cen] = 1;
+
+    return cen;
+}
+
+int dcpTree(int u, int d){
+    int cur = getCen(u);
+    cout<<d<<" ";
+
+    for(int v : a[cur]) if(!isCen[v]) dcpTree(v, d + 1);
+
+    return cur;
 }
 
 int main(){
@@ -50,11 +75,6 @@ int main(){
         a[v].push_back(u);
     }
 
-    getSubsz(1, 0);
-    int cen = getCen(1, 0);
-    calc(cen, 0);
-
-    for(int i =1;i<=n;i++) cout<<res[i]<<" ";
-
+    dcpTree(1, 1);
     return 0;
 }
