@@ -5,9 +5,34 @@ using namespace std;
 int n;
 const int maxn = (int)1e5 + 5;
 vector<vector<int>> a(maxn);
-int subsz[maxn];
+int subsz[maxn], sz[maxn], parent[maxn];
 bool check[maxn], isCen[maxn];
 char res[maxn];
+
+void makeSet(){
+    for(int i = 1;i<=n;i++){
+        sz[i] = 1;
+        parent[i] = i;
+    }
+    return;
+}
+
+int find(int x){
+    if(x == parent[x]) return x;
+    return parent[x] = find(parent[x]);
+}
+
+bool unionSet(int a, int b){
+    a = find(a);
+    b = find(b);
+
+    if(a == b) return false;
+    if(sz[a] < sz[b]) swap(a, b);
+    parent[b] = a;
+    sz[a] += sz[b];
+    sz[b] = 0;
+    return true;
+}
 
 int getSz(int u){
     int sz = 1;
@@ -41,7 +66,6 @@ int initCen(int u, int p){
 
 int getCen(int u){
     memset(check, 0, sizeof(check));
-    memset(subsz, 0, sizeof(subsz));
 
     int p = getSz(u);
     memset(check, 0, sizeof(check));
@@ -54,7 +78,8 @@ int getCen(int u){
 
 int dcpTree(int u, int d){
     int cur = getCen(u);
-    cout<<d<<" ";
+    res[cur] = char('A' + d);
+    // cout<<cur<<": "<<d<<el;
 
     for(int v : a[cur]) if(!isCen[v]) dcpTree(v, d + 1);
 
@@ -68,13 +93,24 @@ int main(){
     cout.tie(0);
 
     cin>>n;
+    bool ok = 1;
+    makeSet();
+
     for(int i =1;i<n;i++){
         int u, v;
         cin>>u>>v;
         a[u].push_back(v);
         a[v].push_back(u);
+        if(!unionSet(u, v)) ok = 0;
     }
 
-    dcpTree(1, 1);
+    if(!ok) {
+        cout<<"Impossible!"<<el;
+        return 0;
+    }
+
+    dcpTree(1, 0);
+    for(int i = 1; i <=n;i++) cout<<res[i]<<" ";
+
     return 0;
 }
