@@ -10,6 +10,6 @@ int main(){
     cout.tie(0);
 
     cin>>str;
-
+    // booth algo
     return 0;
 }
