@@ -14,27 +14,19 @@ int main()
     string s = "|";
 
     for (auto x : str)
-    {
         s = s + x + "|";
-    }
-
+    
     int n = s.length(), r = 0, c = 0, res = 0;
     vector<int> p(n, 0);
 
-    for (int i = 1; i < n; i++)
-    {
+    for (int i = 1; i < n; i++){
         if (i < r)
-        {
             p[i] = min(r - i, p[2 * c - i]);
-        }
-
+        
         while (i - p[i] >= 0 && i + p[i] < n && s[i - p[i]] == s[i + p[i]])
-        {
             p[i]++;
-        }
-
-        if (i + p[i] >= r)
-        {
+        
+        if (i + p[i] >= r){
             r = i + p[i];
             c = i;
         }
