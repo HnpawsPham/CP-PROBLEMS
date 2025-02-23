@@ -1,10 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct line
-{
+struct line{
     int u, v, w;
-
     line(int u1, int v1, int w1) : u(u1), v(v1), w(w1) {};
 };
 
@@ -12,39 +10,25 @@ int n, m;
 vector<line> a;
 vector<int> parent(10001), psize(10001, 0);
 
-void makeSet()
-{
-    for (int i = 1; i <= n; i++)
-    {
+void makeSet(){
+    for (int i = 1; i <= n; i++){
         parent[i] = i;
         psize[i]++;
     }
+    return;
 }
 
-int find(int x)
-{
-    if (x == parent[x])
-    {
-        return x;
-    }
-
+int find(int x){
+    if (x == parent[x]) return x;
     return parent[x] = find(parent[x]);
 }
 
-bool unionSet(int a, int b)
-{
+bool unionSet(int a, int b){
     a = find(a);
     b = find(b);
 
-    if (a == b)
-    {
-        return false;
-    }
-
-    if (psize[a] < psize[b])
-    {
-        swap(a, b);
-    }
+    if (a == b) return 0;
+    if (psize[a] < psize[b]) swap(a, b);
 
     parent[b] = a;
     psize[a] += psize[b];
@@ -52,44 +36,33 @@ bool unionSet(int a, int b)
     return true;
 }
 
-bool compare(line a, line b)
-{
+bool compare(line a, line b){
     return a.w < b.w;
 }
 
-void kruskal()
-{
+void kruskal(){
     vector<line> mst;
     int msize = 0;
 
     sort(a.begin(), a.end(), compare);
 
-    for (int i = 0; i < m; i++)
-    {
-        if (mst.size() == n - 1)
-        {
-            break;
-        }
-
-        if (unionSet(a[i].u, a[i].v))
-        {
+    for (int i = 0; i < m; i++){
+        if (mst.size() == n - 1) break;
+    
+        if (unionSet(a[i].u, a[i].v)){
             mst.push_back(a[i]);
             msize += a[i].w;
         }
     }
 
-    if (mst.size() != n - 1)
-    {
+    if (mst.size() != n - 1){
         cout << "NO";
         return;
     }
 
     cout << msize << endl;
-
     for (auto l : mst)
-    {
         cout << l.u << " " << l.v << " " << l.w << endl;
-    }
 
     return;
 }
