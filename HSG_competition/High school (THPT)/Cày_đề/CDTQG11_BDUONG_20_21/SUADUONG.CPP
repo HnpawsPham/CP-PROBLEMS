@@ -28,7 +28,7 @@ void dijkstra(){
             int w1 = x.fi;
             int v = x.se;
 
-            if(dis[u] + w1 < dis[v]){
+            if(dis[u] != INF && dis[u] + w1 < dis[v]){
                 dis[v] = dis[u] + w1;
                 pq.push({dis[v], v});
             }
