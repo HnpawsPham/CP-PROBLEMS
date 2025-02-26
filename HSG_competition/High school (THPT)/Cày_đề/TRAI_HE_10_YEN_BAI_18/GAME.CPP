@@ -17,8 +17,8 @@ ll sol1(){
     if(n == 2) return a[1] + a[2];
     if(n == 3) return Max(a[1] + a[2], a[2] + a[3], a[1] + a[3]);
 
-    ll c1 = a[1], c2 = a[1] + a[2], c3 = a[1] + a[3];
-    for(int i = 4; i < n; i++){
+    ll c1 = a[1], c2 = a[1] + a[2], c3 = Max(a[1] + a[2], a[2] + a[3], a[1] + a[3]);
+    for(int i = 4; i <= n; i++){
         sum = Max(c1 + a[i] + a[i - 1], c2 + a[i], c3);
         c1 = c2;
         c2 = c3;

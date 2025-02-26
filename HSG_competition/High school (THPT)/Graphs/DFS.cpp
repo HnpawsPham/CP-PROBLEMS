@@ -6,14 +6,11 @@ ll m, n;
 
 void dfs(ll u, vector<bool>& check, const vector<vector<ll>>& a) {
     cout << u << " ";
-
     check[u] = true;
 
-    for (auto v : a[u]) {
-        if (!check[v]) {
-            dfs(v, check, a);
-        }
-    }
+    for (auto v : a[u]) 
+        if (!check[v])  dfs(v, check, a);
+    return;
 }
 
 int main() {

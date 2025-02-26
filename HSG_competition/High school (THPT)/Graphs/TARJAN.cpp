@@ -7,29 +7,23 @@ vector<int> index(10001), low(10001);
 stack<int> path;
 vector<bool> check(10001, false);
 
-void dfs(int u)
-{
+void dfs(int u){
     path.push(u);
     check[u] = true;
     index[u] = low[u] = stt++;
 
-    for (auto v : a[u])
-    {
-        if (index[v] == 0)
-        {
+    for (auto v : a[u]){
+        if (index[v] == 0){
             dfs(v);
             low[u] = min(low[u], low[v]);
         }
-        else if (check[v])
-        { // meet parent
+        else if (check[v]){ // meet parent
             low[u] = min(low[u], index[v]);
         }
     }
 
-    if (index[u] == low[u])
-    {
-        while (true)
-        {
+    if (index[u] == low[u]){
+        while (true){
             int v = path.top();
             path.pop();
 
@@ -37,21 +31,18 @@ void dfs(int u)
 
             if (v == u) break;
         }
-
         cnt++;
     }
 }
 
-int main()
-{
+int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
 
     cin >> n >> m;
 
-    for (int i = 0; i < m; i++)
-    {
+    for (int i = 0; i < m; i++){
         int u, v;
         cin >> u >> v;
 
@@ -59,12 +50,7 @@ int main()
     }
 
     for (int i = 1; i <= n; i++)
-    {
-        if (index[i] == 0)
-        {
-            dfs(i);
-        }
-    }
+        if (index[i] == 0) dfs(i);
 
     cout << (cnt == 1 ? "STRONG" : "WEAK") << endl;
     cout<<cnt;
