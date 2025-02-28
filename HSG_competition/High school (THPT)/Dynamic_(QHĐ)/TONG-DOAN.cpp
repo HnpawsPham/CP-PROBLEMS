@@ -3,8 +3,7 @@ using namespace std;
 using ll = long long;
 #define MOD 1000000007;
 
-int main()
-{
+int main(){
     ios::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
@@ -13,10 +12,8 @@ int main()
     cin >> n;
     vector<ll> a(n + 1, 0);
 
-    for (int i = 1; i <= n; i++)
-    {
+    for (int i = 1; i <= n; i++){
         cin>>a[i];
-
         a[i] += a[i - 1];
     }
 

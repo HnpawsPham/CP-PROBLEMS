@@ -21,18 +21,15 @@ bool bfs(){
 
         if(v == t){
             cout<<endl;
-
             return true;
         }
 
-        for(auto x : a[v]){
+        for(auto x : a[v])
             if(!check[x]){
                 q.push(x);
                 check[x] = true;
             }
-        }
     }
-
     return false;
 }
 
@@ -55,16 +52,14 @@ void dfs(int u){
     }
 }
 
-int main()
-{
+int main(){
     ios::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
 
     cin >> n >> m >> s >> t;
 
-    for (int i = 0; i < m; i++)
-    {
+    for (int i = 0; i < m; i++){
         int u, v;
         cin >> u >> v;
 

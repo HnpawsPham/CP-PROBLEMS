@@ -34,7 +34,6 @@ void multi_src(){
     bfs();
 
     for(int i = 1; i <= n; i++) cout<<i<<" "<<dis[i]<<el;
-    
     return;
 }
 

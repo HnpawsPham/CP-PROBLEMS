@@ -6,18 +6,13 @@ vector<vector<int>> a(10001);
 map<int,int> parent;
 vector<bool> check(10001);
 
-void dfs(int u)
-{
+void dfs(int u){
     check[u] = true;
-
     for (auto v : a[u])
-    {
-        if (!check[v])
-        {
+        if (!check[v]){
             parent.insert({v, u});
             dfs(v);
         }
-    }
 }
 
 void findPath(){

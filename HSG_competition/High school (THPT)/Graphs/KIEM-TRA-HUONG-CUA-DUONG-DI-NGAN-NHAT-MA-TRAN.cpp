@@ -44,8 +44,7 @@ bool bfs(int i, int j)
     return false;
 }
 
-int main()
-{
+int main(){
     ios::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
@@ -53,13 +52,9 @@ int main()
     cin >> n >> m;
 
     for (int i = 0; i < n; i++)
-    {
         for (int j = 0; j < m; j++)
-        {
             cin >> a[i][j];
-        }
-    }
-
+        
     cin >> ay >> ax >> by >> bx;
 
     a[by][bx] = 2;

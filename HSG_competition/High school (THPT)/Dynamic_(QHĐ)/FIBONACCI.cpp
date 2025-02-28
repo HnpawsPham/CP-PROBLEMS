@@ -5,13 +5,10 @@ int t,n;
 vector<int>a(93, -1);
 
 int fibo(int num){
-    if(num < 2){
-        return 1;
-    }
-
-    if(a[num] == -1){
+    if(num < 2) return 1;
+    
+    if(a[num] == -1)
         a[num] = fibo(num - 1) + fibo(num - 2);
-    }
 
     return a[num];
 }

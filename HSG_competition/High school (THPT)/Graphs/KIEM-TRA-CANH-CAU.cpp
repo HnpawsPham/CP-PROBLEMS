@@ -9,33 +9,26 @@ vector<vector<int>> a(maxn);
 // BRUTE FORCE ------------------------------------------------------
 vector<pii> b;
 bool check[maxn] = {false};
-void dfs(int u)
-{
+void dfs(int u){
     check[u] = true;
 
-    for (int v : a[u])
-    {   
+    for (int v : a[u]){   
         if((u == s && v == t) || (u == t && v == s)) continue;
 
-        if (!check[v])
-        {
-            dfs(v);
-        }
+        if (!check[v]) dfs(v);
     }
     return;
 }
 
-void solve()
-{
+void solve(){
     int cnt = 0, res = 0;
     vector<pii> ans;
     
-    for(int i =1;i<=n;i++){
+    for(int i =1;i<=n;i++)
         if(!check[i]){
             dfs(i);
             cnt++;
         }
-    }
 
     for(pii curr : b){
         int u = curr.first;
@@ -45,12 +38,11 @@ void solve()
         memset(check, false, sizeof(check));
         s = u; t = v;
 
-        for(int j = 1; j<=n;j++){
+        for(int j = 1; j<=n;j++)
             if(!check[j]){
                 dfs(j);
                 cnt2++;
             }
-        }
 
         if(cnt2 > cnt){
             res++;
@@ -59,9 +51,8 @@ void solve()
     }
 
     cout<<res<<"\n";
-    for(pii x : ans){
+    for(pii x : ans)
         cout<<x.first<<" "<<x.second<<"\n";
-    }
     return;
 }
 
@@ -78,19 +69,16 @@ void tarjan(int u, int parent){
             tarjan(v, u);
             low[u] = min(low[u], low[v]);
 
-            if(low[v] > index[u]){ // tu v k the quay ve dinh nao la to tien cua u 
+            if(low[v] > index[u]) // tu v k the quay ve dinh nao la to tien cua u 
                 ans.push_back({u, v});
-            }
         }
-        else if(v != parent){
+        else if(v != parent)
             low[u] = min(low[u], index[v]);
-        }
     }   
     return;
 }   
 
-int main()
-{
+int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
@@ -106,15 +94,13 @@ int main()
     
     // solve();
     for(int i = 1;i<=n;i++){
-        if(!index[i]){
+        if(!index[i])
             tarjan(i, 0);
-        }
     }
     
     cout<<ans.size()<<"\n";
-    for(pii x : ans){
+    for(pii x : ans)
         cout<<x.first<<" "<<x.second<<"\n";
-    }
 
     return 0;
 }

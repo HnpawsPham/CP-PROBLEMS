@@ -9,15 +9,11 @@ stack<int> topo;
 void dfs(int u, vector<vector<int>>& a, bool print){
     check[u]++;
 
-    if(print){
-        cout<<u<<" ";
-    }
-
-    for(auto v : a[u]){
-        if(check[v] < check[u]){
+    if(print) cout<<u<<" ";
+    
+    for(auto v : a[u])
+        if(check[v] < check[u])
             dfs(v, a, print);
-        }
-    }
 
     topo.push(u);
 }
@@ -37,11 +33,9 @@ int main(){
         ra[v].push_back(u);
     }
 
-    for(int i = 1;i<=n;i++){
-        if(check[i] < 1){
+    for(int i = 1;i<=n;i++)
+        if(check[i] < 1)
             dfs(i, a, false);
-        }
-    }
     cout<<endl;
 
     while(!topo.empty()){
