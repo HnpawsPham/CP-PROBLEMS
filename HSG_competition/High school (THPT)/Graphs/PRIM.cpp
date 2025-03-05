@@ -3,8 +3,7 @@ using namespace std;
 using ll = long long;
 #define pii pair<int, int>
 
-struct line
-{
+struct line{
     int u, v;
     ll w;
 
@@ -18,15 +17,13 @@ bool check[maxn] = {false};
 int parent[maxn];
 vector<ll> minw(maxn, LLONG_MAX);
 
-void prim(int x)
-{
+void prim(int x){
     vector<line> mst;
     priority_queue<pii, vector<pii>, greater<pii>> pq;
     pq.push({0, x});
     ll res = 0;
 
-    while (!pq.empty())
-    {
+    while (!pq.empty()){
         pii curr = pq.top();
         pq.pop();
 
@@ -40,17 +37,13 @@ void prim(int x)
         check[u] = true;
 
         if (u != x)
-        {
             mst.push_back({parent[u], u, w});
-        }
 
-        for (pii x : a[u])
-        {
+        for (pii x : a[u]){
             int w1 = x.second;
             int v = x.first;
 
-            if (!check[v] && w1 < minw[v])
-            {
+            if (!check[v] && w1 < minw[v]){
                 parent[v] = u;
                 minw[v] = w1;
                 pq.push({w1, v});
@@ -60,20 +53,16 @@ void prim(int x)
 
     cout << res << endl;
     for (auto l : mst)
-    {
         cout << l.u << " " << l.v << " " << l.w << endl;
-    }
 }
 
-int main()
-{
+int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
 
     cin >> n >> m;
-    for (int i = 0; i < m; i++)
-    {
+    for (int i = 0; i < m; i++){
         int u, v;
         ll w;
         cin >> u >> v >> w;
