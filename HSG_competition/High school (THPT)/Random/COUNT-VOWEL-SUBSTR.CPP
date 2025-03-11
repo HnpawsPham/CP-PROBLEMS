@@ -2,8 +2,31 @@
 using namespace std;
 #define el "\n"
 
+string str;
+int n, l, res;
+unordered_map<char, int> mp;
+
 bool is_vow(char x) {
     return (x == 'a' || x == 'e' || x == 'i' || x == 'o' || x == 'u');
+}
+
+int cnt_substr(int num){
+    mp.clear();
+    l = 0, res = 0;
+
+    for (int r = 0; r < n; r++) {
+        if (!is_vow(str[r])){
+            mp.clear(); 
+            l = r + 1; 
+            continue;
+        }
+        mp[str[r]]++;
+
+        while (mp.size() > num) 
+            if(--mp[str[l]]) mp.erase(str[l]);
+        res += (r - l + 1);
+    }
+    return res;
 }
 
 int main() {
@@ -11,29 +34,9 @@ int main() {
     cin.tie(0);
     cout.tie(0);
 
-    string str;
     cin >> str;
-    int n = str.length();
-    
-    unordered_map<char, int> mp;
-    int l = 0, res = 0;
+    n = str.length();
+    cout<<cnt_substr(5) - cnt_substr(4);
 
-    for (int r = 0; r < n; r++) {
-        if (is_vow(str[r])) 
-            mp[str[r]]++;
-        else {  
-            mp.clear(); 
-            l = r + 1; 
-        }
-
-        while(mp.size() == 5) {
-            mp[str[l]]--;
-            if (mp[str[l]] == 0) break;
-            res++;
-            l++; 
-        }
-    }
- 
-    cout << res;
     return 0;
 }

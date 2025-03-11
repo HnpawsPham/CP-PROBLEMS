@@ -16,14 +16,11 @@ int main(){
         a[i + n] = a[i];
     }
 
-    int len = 1, maxx = 0;
-    for(int i = 1; i < n * 2; i++){
-        if(a[i] ^ a[i - 1] == 1) len++;
-        else len = 1;
-        maxx = max(maxx, len);
+    int l = 0, res = 0;
+    for(int r = 0; r < n + k - 1; r++){
+        if(r > 0 && a[r % n] == a[(r - 1) % n]) l = r;
+        if(r - l + 1 >= k) res++;
     }
-    int res = maxx - k + 1;
-    if(maxx == n * 2) res = (res + 1) / 2 + 1;
-    cout<<max(0, res);
+    cout<<res;
     return 0;
 }
