@@ -8,18 +8,6 @@ const int maxn = 2 * 1e5 + 5;
 vector<vector<int>> a(maxn);
 int dis[maxn];
 
-void dfs(int u, int x){
-    dis[u] = 0;
-    for(int v : a[u]){
-        if(dis[v] == -1) {
-            dis[v] = dis[u] + 1;
-            dfs(v, x);
-        } 
-        if(v == x) return;
-    }
-    return;    
-}
-
 void bfs(int x){
     queue<int> q;
     q.push(x);
@@ -28,9 +16,11 @@ void bfs(int x){
     while(!q.empty()){
         int u = q.front();
         q.pop();
+        
+        if(dis[u] == k) continue;;
 
-        for(int v : a[u]){
-            if(dis[v] == -1) continue;
+        for(int v : a[u]){  
+            if(dis[v] != -1) continue;
             dis[v] = dis[u] + 1;
             q.push(v);
         }
@@ -38,7 +28,7 @@ void bfs(int x){
     return;
 }
 
-int find_path(int u, int k){
+int sub1(int u, int k){
     memset(dis, -1, sizeof(dis));
     bfs(u);
 
@@ -64,7 +54,7 @@ int main(){
     while(q--){
         int u, k;
         cin>>u>>k;
-        cout<<find_path(u, k)<<el;
+        cout<<sub1(u, k)<<el;
     }
 
     return 0;
