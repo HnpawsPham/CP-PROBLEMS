@@ -1,27 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define el "\n"
+#define pii pair<int, int>
+#define fi first
+#define se second
 
-int n, m, bridge = 0, id = 0;
+int n, m, id = 1, cnt;
 const int maxn = 1e5 + 5;
-vector<vector<int>> a(maxn);
-int low[maxn], idx[maxn] = {};
+vector<vector<int>> a(maxn), bcc(maxn);
+int low[maxn], idx[maxn];
+bool check[maxn];
+set<pii> bridge;
 
-void tarjan(int u, int parent){
+void dfs(int u, int parent){
     low[u] = idx[u] = ++id;
+    check[u] = 1;
 
     for(int v : a[u]){
         if(v == parent) continue;
-
-        if(!idx[v]){
-            tarjan(v, u);
+        if(!check[v]){
+            dfs(v, u);
             low[u] = min(low[u], low[v]);
 
-            if(low[u] == idx[v]) bridge++;
+            if(low[v] == idx[v]) 
+                bridge.insert({max(u, v), min(u, v)});
         }
         else low[u] = min(low[u], idx[v]);
     }
     return;
+}
+
+void init_bcc(int u, int id){
+    check[u] = 1;
+    bcc[id].push_back(u);
+
+    for(int v : a[u]){
+        if(!check[v] && bridge.find({max(u, v), min(u, v)}) == bridge.end())
+            init_bcc(v, id);
+    }
 }
 
 int main(){
@@ -31,14 +47,27 @@ int main(){
     cout.tie(0);
 
     cin>>n>>m;
-    while(m--){
+    for(int i = 0; i < m; i++){
         int u, v;
         cin>>u>>v;
         a[u].push_back(v);
         a[v].push_back(u);
     }
-    for(int i = 1; i <= n; i++) if(!idx[i]) tarjan(i, 0);
-    cout<<bridge;
 
+    for(int i = 1; i <= n; i++) 
+        if(!check[i]) dfs(i, 0);
+    
+    memset(check, 0, sizeof(check));
+    int bcc_id = 0;
+    for(int i = 1; i <= n; i++)
+        if(!check[i]) 
+            init_bcc(i, bcc_id++);
+    
+    int res = 0;
+    for(int i = 0; i < bcc_id; i++){
+        int sz = bcc[i].size();
+        res += sz * (sz - 1) / 2;
+    }
+    cout<<res;
     return 0;
 }

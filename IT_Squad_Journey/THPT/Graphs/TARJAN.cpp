@@ -7,6 +7,7 @@ vector<int> index(10001), low(10001);
 stack<int> path;
 vector<bool> check(10001, false);
 
+// KTRA TPLT MANH
 void dfs(int u){
     path.push(u);
     check[u] = true;
