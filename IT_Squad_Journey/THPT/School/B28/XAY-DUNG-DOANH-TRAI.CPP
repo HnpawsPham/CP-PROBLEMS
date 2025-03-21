@@ -7,7 +7,8 @@ using namespace std;
 
 int n, m, id = 1, cnt;
 const int maxn = 1e5 + 5;
-vector<vector<int>> a(maxn), bcc(maxn);
+vector<vector<int>> a(maxn);
+int bcc[maxn] = {};
 int low[maxn], idx[maxn];
 bool check[maxn];
 set<pii> bridge;
@@ -32,12 +33,12 @@ void dfs(int u, int parent){
 
 void init_bcc(int u, int id){
     check[u] = 1;
-    bcc[id].push_back(u);
+    bcc[id]++;
 
-    for(int v : a[u]){
+    for(int v : a[u])
         if(!check[v] && bridge.find({max(u, v), min(u, v)}) == bridge.end())
             init_bcc(v, id);
-    }
+    return;
 }
 
 int main(){
@@ -64,8 +65,7 @@ int main(){
             init_bcc(i, bcc_id++);
     
     int res = 0;
-    for(int i = 0; i < bcc_id; i++){
-        int sz = bcc[i].size();
+    for(int sz : bcc){
         res += sz * (sz - 1) / 2;
     }
     cout<<res;
