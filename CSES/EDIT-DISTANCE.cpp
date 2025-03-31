@@ -18,25 +18,17 @@ int main()
     dp[0][0] = 0;
 
     for (int i = 0; i <= n; i++)
-    {
-        for (int j = 0; j <= m; j++)
-        {
+        for (int j = 0; j <= m; j++){
             if (i != 0)
-            {
                 dp[i][j] = min(dp[i][j], dp[i - 1][j] + 1);
-            }
-
+            
             if (j != 0)
-            {
                 dp[i][j] = min(dp[i][j], dp[i][j - 1] + 1);
-            }
+            
 
             if (i != 0 && j != 0)
-            {
                 dp[i][j] = min(dp[i][j], dp[i - 1][j - 1] + (str[i - 1] != s[j - 1]));
-            }
         }
-    }
 
     cout << dp[n][m] << endl;
 
