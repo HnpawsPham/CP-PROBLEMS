@@ -9,6 +9,10 @@ struct line{
     line(int u1, int v1, ll w1) : u(u1), v(v1), w(w1) {};
 };
 
+bool comp(line a, line b){
+    return a.w < b.w;
+}
+
 int n, m;
 const int maxn = 1005;
 vector<line> a;
@@ -27,10 +31,6 @@ int find(int x){
     return parent[x] = find(parent[x]);
 }
 
-bool comp(line a, line b){
-    return a.w < b.w;
-}
-
 bool union_set(int a, int b){
     a = find(a);
     b = find(b);
@@ -43,33 +43,9 @@ bool union_set(int a, int b){
     return 1;
 }
 
-void kruskal(){
-    ll maxx = -1e9 - 1, minn = 1e9 + 1;
-    int msize = 0;
-    
-    sort(a.begin(), a.end(), comp);
-    
-    for(int i = 0; i < m; i++){
-        if(msize == n - 1) break;
-
-        if(union_set(a[i].u, a[i].v)){
-            msize++;
-            minn = min(minn, a[i].w);
-            maxx = max(maxx, a[i].w);
-        }
-    }
-
-    if(msize != n - 1){
-        cout<<"NOT FOUND";
-        return;
-    }
-    cout<<1LL* maxx - minn;
-    return;
-}
-
 int main(){
     ios::sync_with_stdio(0);
-    cin.tie(0);
+    cin.tie(NULL);
 
     cin>>n>>m;
     for(int i = 0; i < m; i++){
@@ -78,7 +54,11 @@ int main(){
         cin>>u>>v>>w;
         a.emplace_back(u, v, w);
     }
+
+    if(m < n - 1) return cout<<"NOT FOUND";
+
     make_set();
-    kruskal();
+    sort(a.begin(), a.end(), comp);
+
     return 0;
 }
