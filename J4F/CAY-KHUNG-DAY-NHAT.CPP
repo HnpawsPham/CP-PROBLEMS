@@ -1,20 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
-#define el "\n"
 
-struct line{
+struct line {
     int u, v;
     ll w;
-    line(int u1, int v1, ll w1) : u(u1), v(v1), w(w1) {};
+    line(int u1, int v1, ll w1) : u(u1), v(v1), w(w1) {}
+    bool operator<(const line& other) const {
+        return w < other.w;
+    }
 };
 
-bool comp(line a, line b){
-    return a.w < b.w;
-}
-
-int n, m;
+int n, m, component;
 const int maxn = 1005;
+const ll oo = 3e9;
 vector<line> a;
 int parent[maxn], sz[maxn];
 
@@ -26,39 +25,61 @@ void make_set(){
     return;
 }
 
-int find(int x){
-    if(x == parent[x]) return x;
+int find(int x) {
+    if (parent[x] == x) return x;
     return parent[x] = find(parent[x]);
 }
 
-bool union_set(int a, int b){
+bool union_set(int a, int b) {
     a = find(a);
     b = find(b);
 
-    if(a == b) return 0;
-    if(sz[a] < sz[b]) swap(a, b);
+    if (a == b) return 0;
+    if (sz[a] < sz[b]) swap(a, b);
 
     parent[b] = a;
     sz[a] += sz[b];
+    component--;
+
     return 1;
 }
 
-int main(){
-    ios::sync_with_stdio(0);
+int main() {
+    ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    cin>>n>>m;
-    for(int i = 0; i < m; i++){
-        int u, v;
-        ll w;
-        cin>>u>>v>>w;
+    cin >> n >> m;
+
+    if (m < n - 1) 
+        return cout << "NOT FOUND", 0;
+
+    vector<line> a;
+    for (int i = 0; i < m; ++i) {
+        int u, v, w;
+        cin >> u >> v >> w;
         a.emplace_back(u, v, w);
     }
 
-    if(m < n - 1) return cout<<"NOT FOUND";
+    sort(a.begin(), a.end());
+    ll res = oo;
 
-    make_set();
-    sort(a.begin(), a.end(), comp);
+    for (int i = 0; i < m; ++i) {
+        make_set();
+
+        int msize = 0;
+        for (int j = i; j < m; ++j) {
+            if (union_set(a[j].u, a[j].v)) 
+                msize++;
+            
+            if (msize == n - 1 && component == 1) {
+                res = min(res, a[j].w - a[i].w);
+                break;
+            }
+        }
+    }
+
+    if (res == oo) cout << "NOT FOUND";
+    else cout << res;
 
     return 0;
 }

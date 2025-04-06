@@ -1,18 +1,23 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
-#define MOD 14062008
 
 int n;
 
 int main(){
     cin>>n;
-    int a[n * 2], b[n * 2];
     int sum = 0;
+    int v[2 * n];
+    
     for(int i = 0; i < n * 2; i++) {
-        cin>>a[i]>>b[i];
-        sum += a[i];
+        int a, b;
+        cin>>a>>b;
+        sum += a;
+        v[i] = b - a;
     }
-
- 
+    sort(v, v + 2 * n);
+    
+    for(int i = 0; i < n; i++) sum += v[i];
+    cout<<sum;
     return 0;
 }
