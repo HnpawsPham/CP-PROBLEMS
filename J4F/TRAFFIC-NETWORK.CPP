@@ -8,28 +8,24 @@ using namespace std;
 int tcase, n, m, q, s, t;
 const int maxn = 10005;
 const int oo = INT_MAX;
-vector<pii> a[maxn], ra[maxn], b[maxn];
-int dis[3][maxn];
+vector<pii> a[maxn], ra[maxn];
+int dis[2][maxn];
 
-void dijkstra(int s, vector<pii> g[], int dis[]){
-    dis[s] = 0;
+void dijkstra(int src, vector<pii> g[], int d[]){
     priority_queue<pii, vector<pii>, greater<pii>> pq;
-    pq.push({0, s});
+    for(int i = 1; i <= n; ++i) d[i] = oo;
+    d[src] = 0;
+    pq.push({0, src});
 
     while(!pq.empty()){
-        int w = pq.top().fi;
-        int u = pq.top().se;
-        pq.pop();
+        auto [du, u] = pq.top(); pq.pop();
 
-        if(w > dis[u]) continue;
-
-        for(pii x : g[u]){
-            int v = x.se;
-            int w1 = x.fi;
-
-            if(dis[v] > dis[u] + w1){
-                dis[v] = dis[u] + w1;
-                pq.push({dis[v], v});
+        if(du > d[u]) continue;
+        
+        for(auto [w, v] : g[u]){
+            if(d[v] > d[u] + w){
+                d[v] = d[u] + w;
+                pq.push({d[v], v});
             }
         }
     }
@@ -37,54 +33,48 @@ void dijkstra(int s, vector<pii> g[], int dis[]){
 }
 
 void init(){
-    cin>>n>>m>>q>>s>>t;
-    for(int i = 1; i <= n; i++){
+    cin >> n >> m >> q >> s >> t;
+    for(int i = 1; i <= n; ++i){
         a[i].clear();
         ra[i].clear();
-        b[i].clear();
     }
 
     while(m--){
         int u, v, w;
-        cin>>u>>v>>w;
+        cin >> u >> v >> w;
         a[u].push_back({w, v});
         ra[v].push_back({w, u});
-    }
-
-    while(q--){
-        int u, v, w;
-        cin>>u>>v>>w;
-        b[u].push_back({w, v});
-        b[v].push_back({w, u});
     }
     return;
 }
 
 void sol(){
-    memset(dis, 0x3f, sizeof(dis));
     dijkstra(s, a, dis[0]);
     dijkstra(t, ra, dis[1]);
 
     int res = dis[0][t];
-    
-    for(int i = 1; i <= n; i++)
-        for(pii x : b[i])
-            res = min(res, dis[0][i] + x.fi + dis[1][x.se]);
-    
-    cout<<(res < oo ? res : -1);
+
+    while(q--){
+        int u, v, w;
+        cin >> u >> v >> w;
+        if(dis[0][u] != oo && dis[1][v] != oo)
+            res = min(res, dis[0][u] + w + dis[1][v]);
+        if(dis[0][v] != oo && dis[1][u] != oo)
+            res = min(res, dis[0][v] + w + dis[1][u]);
+    }
+
+    cout << (res < oo ? res : -1) << el;
     return;
 }
 
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
-    cout.tie(0);
 
-    cin>>tcase;
+    cin >> tcase;
     while(tcase--){
         init();
         sol();
     }
-
     return 0;
 }
