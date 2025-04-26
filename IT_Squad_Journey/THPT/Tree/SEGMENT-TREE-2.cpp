@@ -8,9 +8,8 @@ const int maxn = (int)1e5 + 3;
 ll a[maxn * 4];
 
 void build(){
-    for(int i = node - 1; i>0;i--){
+    for(int i = node - 1; i>0;i--)
         a[i] = a[2 * i] + a[2 * i + 1];
-    }
     return;
 }
 
@@ -18,6 +17,7 @@ void update(int pos, ll val){
     int t = node + pos;
     a[t] = val;
     t /= 2;
+    
     while(t > 0){
         a[t] = a[2 * t] + a[2 * t + 1];
         t/=2;
