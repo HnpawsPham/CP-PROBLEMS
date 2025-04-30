@@ -5,24 +5,40 @@ using ll = long long;
 
 int n, k;
 
+bool check(ll val, vector<ll>& a){
+    int i = 0, cnt = 0;
+
+    while(i < n){
+        if(a[i] <= val){
+            i += 2;
+            cnt++;
+        }
+        else i++;
+    }
+    return cnt >= k;
+}
+
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
 
     cin>>n>>k;
-    vector<ll> a(n + 1);
-    for(int i = 1; i <= n; i++) cin>>a[i];
+    vector<ll> a(n);
+    for(int i = 0; i < n; i++) cin>>a[i];
 
-    ll dp[n + 1];
-    dp[1] = a[1];
-    ll res = LLONG_MAX;
+    ll l = *min_element(a.begin(), a.end());
+    ll r = *max_element(a.begin(), a.end());
+    ll mid, res;
 
-    for(int i = 2; i <= n; i++){
-        for(int j = 1; j < i - 1; j++){
-            dp[i] = max(a[i], dp[j]);
-            res = min(res, dp[i]);
+    while(l <= r){
+        mid = l + (r - l) / 2;
+        
+        if(check(mid, a)){
+            res = mid;
+            r = mid - 1;
         }
+        else l = mid + 1;
     }
     cout<<res;
     return 0;
