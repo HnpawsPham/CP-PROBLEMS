@@ -16,10 +16,8 @@ void dfs(int u) {
         return;
     }
 
-
-    for (const auto& p : a[u]) {
+    for (const auto& p : a[u]) 
         dfs(p.first);
-    }
 
     auto up_single = [&](int v, int w, int i) {
         if (i < 1) return;
