@@ -3,14 +3,14 @@ using namespace std;
 using ll = long long;
 #define el "\n"
 
-int n, node = 1;
+int n, m, node = 1;
 ll x;
 const int maxn = 1e5 + 5;
 ll a[maxn];
 int t[4 * maxn];
 
 void update(int i, int val){
-    i += n;
+    i += m;
     t[i] = max(t[i], val);
 
     while(i > 0){
@@ -21,8 +21,8 @@ void update(int i, int val){
 }
 
 int query(int l, int r){
-    l += n;
-    r += n;
+    l += m;
+    r += m;
 
     int res = 0;
     while(l <= r){
@@ -76,21 +76,23 @@ int main(){
         b.push_back(a[i] - x);
         b.push_back(a[i] + x);
     }
+    // tạo 2 biên để lower upper cho chính xác, dù j cũng k ảnh hưởng
+    // nếu k có lower có thể trả về giá trị = a[i] và upper vượt a[i] + x vì k tìm thấy -> sai
 
     sort(b.begin(), b.end());
     b.erase(unique(b.begin(), b.end()), b.end());
 
     map<ll, int> mp;
-    int m = b.size();
+    m = b.size();
 
     for(int i = 0; i < m; i++)
         mp[b[i]] = i + 1;
 
     int res = 0;
     for(int i = 0; i < n; i++){
-        int l = lower_bound(b.begin(), b.end(), a[i] - x) - b.begin() + 1;
-        int r = lower_bound(b.begin(), b.end(), a[i] + x) - b.begin();
-
+        int l = lower_bound(b.begin(), b.end(), a[i] - x) - b.begin() + 1; // lấy ptử đầu tiên hợp lệ
+        int r = upper_bound(b.begin(), b.end(), a[i] + x) - b.begin();     // lấy ptử cuối cùng hợp lệ
+                                                                        // => range đủ
         int good = query(l, r);
         update(mp[a[i]], good + 1);
 
