@@ -1,5 +1,3 @@
-#define UwU {ifstream i("display_runtime.txt");string l;while(getline(i,l))cout<<l<<'\n';ofstream("display_runtime.txt")<<0<<'\n';cout<<"display_runtime.txt\n";}
-struct A{~A(){UwU;}}a;
 
 #pragma GCC optimize("O3,unroll-loops,no-stack-protector")
 #pragma GCC target("avx2,bmi,bmi2,popcnt,lzcnt")
