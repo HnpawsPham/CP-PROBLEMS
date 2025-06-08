@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "numeric": "cpp",
+        "iostream": "cpp",
+        "iosfwd": "cpp",
+        "valarray": "cpp",
+        "random": "cpp"
+    }
+}
