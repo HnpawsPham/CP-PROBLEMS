@@ -1,1 +1,0 @@
-        // cout<<sumUoc[i]<<endl;
