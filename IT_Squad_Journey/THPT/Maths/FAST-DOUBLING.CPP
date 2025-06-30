@@ -2,30 +2,25 @@
 using namespace std;
 using ll = long long;
 #define el "\n"
+#define pll pair<ll, ll>
+#define fi first
 
 // tính fibonacci chuẩn O(log n)
 const ll MOD = 1e9 + 7;
 
+pll fibo(ll n) {
+    if(n == 0) return {0, 1};
+
+    auto [f1, f2] = fibo(n / 2);
+    ll l = (f1 * ((2 * f2 % MOD - f1 + MOD) % MOD)) % MOD;      // f1 x (2 x f2 - f1)
+    ll r = (f1 * f1 + f2 * f2) % MOD;                           // f1^2 + f2^2
+     
+    if(n & 1) return {r, (l + r) % MOD}; 
+    return {l, r};       
+}
+
 ll calc(ll n) {
-    if (n == 0) return 0;
-    ll a = 0, b = 1;
-
-    for (ll i = 63; i >= 0; --i) {
-        if ((n >> i) == 0) continue;
-
-        ll d = (a * ((2 * b % MOD - a + MOD) % MOD)) % MOD;
-        ll e = (a * a + b * b) % MOD;
-
-        if ((n >> i) & 1) {
-            a = e;
-            b = (d + e) % MOD;
-        } 
-        else {
-            a = d;
-            b = e;
-        }
-    }
-    return a;
+    return fibo(n).fi;
 }
 
 int main(){
