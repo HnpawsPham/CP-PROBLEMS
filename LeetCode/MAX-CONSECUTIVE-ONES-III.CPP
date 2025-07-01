@@ -17,10 +17,8 @@ int main(){
     for(int r = 0; r < n; r++){
         if(!a[r]) cnt++;
 
-        while(cnt > k && l <= r){
-            if(!a[l]) cnt--;
-            l++;
-        }
+        while(cnt > k && l <= r)
+            if(!a[l++]) cnt--;
 
         if(cnt <= k)
             res = max(res, r - l + 1);
