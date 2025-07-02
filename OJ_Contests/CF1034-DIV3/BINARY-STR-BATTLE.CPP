@@ -7,7 +7,8 @@ using ll = long long;
 #define fi first
 #define se second
 
-int t, n, j, k;
+int t, n, k;
+string s;
 
 int main(){
     ios::sync_with_stdio(0);
@@ -16,15 +17,13 @@ int main(){
 
     cin>>t;
     while(t--){
-        cin>>n>>j>>k;
-        int a[n];
-        for(int i = 0; i < n; i++) cin>>a[i];
+        cin>>n>>k>>s;
 
-        int maxx = 0;
+        int cnt1 = 0;
         for(int i = 0; i < n; i++)
-            maxx = max(maxx, a[i]);
+            cnt1 += (s[i] == '1');
 
-        cout<<(k > 1 || a[j - 1] == maxx ? "YES" : "NO")<<el;
+        cout<<(cnt1 <= k || n < 2 * k ? "alice" : "bob")<<el;
     }
 
     return 0;
