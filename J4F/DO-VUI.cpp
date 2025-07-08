@@ -3,7 +3,48 @@ using namespace std;
 #define el "\n"
 
 int t, n;
-string str;
+string s;
+
+string sol(){
+    if(n % 2 == 0) return "No Solution";
+
+    int d = 0;
+    string res = "No Solution", s1 = "", s2 = "";
+
+    for(int i = 0; i < n / 2; i++){
+        if(s[i] != s[n / 2 + i + d] && !d){
+            d++;
+            i--;
+        } 
+        else if(s[i] != s[n / 2 + i + d] && d){
+            s1 = "";
+            break;
+        }
+        else s1 += s[i];
+    }
+
+    if(!s1.empty()) res = s1;
+
+    d = 0;
+    for(int i = 0; i < n / 2; i++){
+        if(s[i + d] != s[n / 2 + i + 1] && !d){
+            d++;
+            i--;
+        } 
+        else if(s[i + d] != s[n / 2 + i + 1] && d){
+            s2 = "";
+            break;
+        }
+        else s2 += s[i + d];
+    }
+
+    if (s2 != ""){
+        if (res != "No Solution" && res != s2)
+            res = "Multiple Solutions";
+        else res = s2;
+    }
+    return res;
+}
 
 
 int main(){
@@ -11,30 +52,8 @@ int main(){
     cin.tie(0);
     cout.tie(0);
     
-    cin>>t;
-    while(t--){
-        cin>>n>>str;
-        if(n % 2 == 0) {
-            cout<<"No solution"<<el; continue;
-        }
-
-        int cnt = 0;
-        int len = n / 2;
-        string s = "";
-
-        for(int i = 0; i < n - len; ++i){
-            bool t1 = (str[i] == str[i + len]);
-            bool t2 = (str[i] == str[i + len + 1]);
-
-            if(t1 || t2){
-                cnt = cnt + t1 + t2;
-                s = s + str[i];
-            }
-        }
-        // cout<<s<<" "<<cnt<<el;
-        if(cnt == len) cout<<s<<el;
-        else cout<<"Multiple Solutions"<<el;
-    }
+    cin>>n>>s;
+    cout<<sol();
 
     return 0;
 }
