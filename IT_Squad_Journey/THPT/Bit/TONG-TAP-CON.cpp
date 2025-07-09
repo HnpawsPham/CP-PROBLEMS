@@ -16,7 +16,7 @@ int main(){
     for(int i = 0; i < n;i++) cin>>a[i];
 
     int res = 0;
-    for(int i = 1; i<(1 << n); i++){
+    for(int i = 1; i < (1 << n); i++){
         int sum = 0;
         for(int j = 0; j < n;j++){
             if(bit(i, j)) sum += a[j];

@@ -11,7 +11,7 @@ int main(){
     int a[] = {3, 6, 2, 8, 4};
 
     for(int i = 0; i < (1 << n); i++){
-        for(int j = 0;j < n;j++){
+        for(int j = 0;j < n; j++){
             if((i >> j) & 1) cout<<a[j]<<" ";
         }
         cout<<el;

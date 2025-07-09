@@ -5,8 +5,7 @@ using namespace std;
 int n, s;
 vector<int> a(10001);
 
-int main()
-{
+int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
@@ -14,16 +13,13 @@ int main()
     cin >> n >> s;
     a.resize(n);
 
-    for (auto &x : a)
-    {
-        cin >> x;
-    }
+    for (auto &x : a) cin >> x;
+
     sort(a.begin(), a.end());
 
     auto it = upper_bound(a.begin(), a.end(), s);
 
-    if (it == a.end())
-    {
+    if (it == a.end()){
         cout << "NO" << endl;
         return 0;
     }
