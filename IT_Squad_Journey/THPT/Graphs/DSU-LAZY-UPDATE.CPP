@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define el "\n"
+#define el '\n'
 
 int n, q;
 const int maxn = 1e5 + 5;
@@ -10,8 +10,7 @@ void make_set(){
     for(int i = 1; i <= n; i++){
         parent[i] = i;
         sz[i] = 1;
-        sum[i] = 0;
-        del[i] = 0;
+        sum[i] = del[i] = 0;
     }
     return;
 }
@@ -34,20 +33,21 @@ void union_set(int a, int b){
     if(sz[a] < sz[b]) swap(a, b);
 
     parent[b] = a;
-    del[b] = sum[b] - sum[a];
     sz[a] += sz[b];
+    del[b] = sum[b] - sum[a];
+
+    return;
+}
+
+void add(int a, int val){
+    int root = find(a);
+    sum[root] += val;
     return;
 }
 
 int get(int a){
     int root = find(a);
     return sum[root] + del[a];
-}
-
-void add(int a, int val){
-    a = find(a);
-    sum[a] += val;
-    return;
 }
 
 int main(){
@@ -58,20 +58,32 @@ int main(){
     cin>>n>>q;
     make_set();
 
-    while(q--){
-        string opt;
-        int x, y;
-        cin>>opt>>x;
+    string opt;
+    int u, v;
 
+    while(q--){
+        cin>>opt>>u;
         if(opt == "get"){
-            cout<<get(x)<<el;
+            cout<<get(u)<<el;
             continue;
         }
-        cin>>y;
+        cin>>v;
         if(opt == "join")
-            union_set(x, y);
-        else add(x, y);
+            union_set(u, v);
+        else if(opt == "add")
+            add(u, v);
     }
 
     return 0;
 }
+// 4 10
+// join 1 2
+// add 1 100
+// join 2 3
+// add 1 50
+// join 3 4
+// add 1 25
+// get 1
+// get 2
+// get 3
+// get 4
