@@ -4,7 +4,7 @@ using ll = unsigned long long;
 #define el '\n'
 
 int t, x;
-const int maxn = 3e6 + 5;
+const int maxn = 2e6 + 5;
 bitset<maxn> nprime;
 vector<ll> p;
 
