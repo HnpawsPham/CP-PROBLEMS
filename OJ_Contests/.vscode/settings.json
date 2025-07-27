@@ -4,6 +4,7 @@
         "numeric": "cpp",
         "iostream": "cpp",
         "iosfwd": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "bitset": "cpp"
     }
 }
