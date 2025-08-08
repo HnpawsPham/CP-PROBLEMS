@@ -33,6 +33,5 @@ int main(){
         cin>>n>>k;
         cout<<sol()<<el;
     }
-
     return 0;
 }
