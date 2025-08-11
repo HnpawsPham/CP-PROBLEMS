@@ -8,28 +8,26 @@ using db = double;
 #define fi first
 #define se second
 
-int t, n;
-
-int sol(){
-    int a[n];
-    for(int i = 0; i < n; i++) cin>>a[i];
-
-    for(int i = 1; i < n; i++) 
-        if(a[i] != a[0]) return 1;10
-        
-    return n;
-}
+string s;
+int x;
 
 int main(){
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
 
-    cin>>t;
-    while(t--){
-        cin>>n;
-        cout<<sol()<<el;
+    cin>>s>>x;
+    char res;
+    if(s == "front"){
+        if(x == 1) res = 'L';
+        else res = 'R';
     }
-
+    else{
+        if(x == 1) res = 'R';
+        else res = 'L';
+    }
+    cout<<res;
     return 0;
 }

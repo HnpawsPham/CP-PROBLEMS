@@ -11,13 +11,7 @@ using db = double;
 int t, n;
 
 int sol(){
-    int a[n];
-    for(int i = 0; i < n; i++) cin>>a[i];
-
-    for(int i = 1; i < n; i++) 
-        if(a[i] != a[0]) return 1;10
-        
-    return n;
+    return (n / 4) + ((n % 4) / 2);
 }
 
 int main(){

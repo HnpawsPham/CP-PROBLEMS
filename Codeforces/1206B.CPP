@@ -8,28 +8,25 @@ using db = double;
 #define fi first
 #define se second
 
-int t, n;
-
-int sol(){
-    int a[n];
-    for(int i = 0; i < n; i++) cin>>a[i];
-
-    for(int i = 1; i < n; i++) 
-        if(a[i] != a[0]) return 1;10
-        
-    return n;
-}
+int n;
 
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
 
-    cin>>t;
-    while(t--){
-        cin>>n;
-        cout<<sol()<<el;
+    cin>>n;
+    int neg = 0, cnt0 = 0;
+    ll res = 0;
+    while(n--){
+        int x;
+        cin>>x;
+        
+        if(x < 0) neg++;
+        if(x == 0) cnt0++;
+        res += llabs(llabs(x) - 1);
     }
-
+    if(neg % 2 && cnt0 == 0) res += 2;
+    cout<<res;
     return 0;
 }
