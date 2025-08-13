@@ -1,7 +1,7 @@
 import os
 
-cpp_count = sum(1 for root, _, files in os.walk('.') for f in files if f.endswith('.cpp'))
-py_count = sum(1 for root, _, files in os.walk('.') for f in files if f.endswith('.py'))
+cpp_count = sum(1 for root, _, files in os.walk('.') for f in files if f.endswith('.cpp') or f.endswith('.CPP'))
+py_count = sum(1 for root, _, files in os.walk('.') for f in files if f.endswith('.py') or f.endswith('.PY'))
 
 with open("README.md", "r", encoding="utf-8") as f:
     content = f.read()
