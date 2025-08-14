@@ -1,3 +1,3 @@
 Repo này hiện có: <br>
--> {{CPP_COUNT}} files .cpp <br>
--> {{PY_COUNT}} files .py
+-> 1249 files .cpp <br>
+-> 23 files .py
