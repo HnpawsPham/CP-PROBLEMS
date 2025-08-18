@@ -8,20 +8,19 @@ using db = double;
 #define fi first
 #define se second
 
-
-
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
 
-    int n, m;
-    cin>>n>>m;
-    vi a(n);
-    vector<vi> que(m, vi(4));
-    for(int i = 0; i < n; i++) cin>>a[i];
-    for(int i = 0; i < m; i++) cin>>que[i][0]>>que[i][1]>>que[i][2]>>que[i][3];
-
-    
+    int n;
+    cin>>n;
+    int minn = 1e5 + 5;
+    while(n--){
+        int x;
+        cin>>x;
+        minn = min(minn, abs(x));
+    }
+    cout<<minn;
     return 0;
 }
