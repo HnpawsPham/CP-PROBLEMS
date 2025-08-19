@@ -6,6 +6,8 @@
         "ostream": "cpp",
         "chrono": "cpp",
         "functional": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "span": "cpp",
+        "type_traits": "cpp"
     }
 }
