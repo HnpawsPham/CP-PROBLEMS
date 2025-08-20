@@ -18,7 +18,6 @@ ll ppow(int a, int b){
     return 1LL * half * half % MOD;
 }
 
-
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
@@ -33,7 +32,7 @@ int main(){
 
     int sz = sqrt(n);
     vll b(n, 1);
-    vector<vector<vi>> sq; //small k queries
+    vector<vector<vi>> sq(n + 1);
 
     for(const auto& q : que){
         int l = q[0], r = q[1], k = q[2], v = q[3];
@@ -57,7 +56,15 @@ int main(){
             int en = (r - mod) / k;
 
             d[mod][st] = d[mod][st] * v % MOD;
-            d[mod][en + 1] = d[mod][en * 1] * ppow(v, MOD - 2) % MOD;
+            d[mod][en + 1] = d[mod][en + 1] * ppow(v, MOD - 2) % MOD;
+        }
+
+        for(int mod = 0; mod < k; mod++){
+            ll mul = 1;
+            for(int i = 0; i * k + mod < n; i++){
+                mul = mul * d[mod][i] % MOD;
+                b[i * k + mod] = b[i * k + mod] * mul % MOD;
+            }
         }
     }
 
@@ -69,3 +76,7 @@ int main(){
     cout<<res;
     return 0;
 }
+
+// 3 1
+// 1 1 1
+// 0 2 1 4
