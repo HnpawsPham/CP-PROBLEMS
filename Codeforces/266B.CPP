@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+using db = double;
+#define el '\n'
+#define vi vector<int>
+#define pii pair<int, int>
+#define fi first
+#define se second
+
+int n, t;
+
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    cin>>n>>t;
+    string s;
+    cin>>s;
+
+    while(t--){
+        for(int i = 1; i < n; i++)
+            if(s[i] == 'G' && s[i - 1] == 'B') {
+                swap(s[i], s[i - 1]);
+                i++;
+            }
+    }
+    cout<<s;
+    return 0;
+}
