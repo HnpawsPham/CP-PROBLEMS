@@ -30,14 +30,16 @@ void sol(){
     res[1] = ok;
     res[n] = cnt[1];
 
-    if(res[n]){
-        int l = 0, r = n - 1;
-        for(int i = 1; i <= n; i++){
-            if(a[l] == i) l++;
-            else if(a[r] == i) r++;
-            
-        }
+    int l = 1, r = n;
+    for(int i = 1; i < n; i++){
+        if(cnt[i + 1] == 0 || --cnt[i]) break;
+        if(a[l] == i) l++;
+        else if(a[r] == i) r--;
+        else break;
     }
+
+    for(int i = r - l + 1; i < n; i++)
+        res[i] = 1;
 
     for(int i = 1; i <= n; i++) cout<<res[i];
     cout<<el;
