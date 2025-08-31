@@ -7,7 +7,7 @@ int n, m, d;
 const int maxn = 2001;
 int parent[maxn], sz[maxn];
 
-void makeSet(){
+void make_set(){
     for(int i = 1;i<=n;i++){
         parent[i] = i;
         sz[i] = 1;
@@ -22,7 +22,7 @@ int find(int x){
     return parent[x] = find(parent[x]);
 }
 
-void unionSet(int a, int b){
+void unite(int a, int b){
     a = find(a);
     b = find(b);
 
@@ -38,7 +38,7 @@ void unionSet(int a, int b){
     return;
 }
 
-void disunionSet(int a, int b){
+void dis_unite(int a, int b){
     a = find(a);
     b = find(b);
 
@@ -53,26 +53,24 @@ int main(){
     cout.tie(0);
 
     cin>>n>>m;
-    makeSet();
+    make_set();
     
     for(int i = 0; i<m;i++){
         int u, v;
         cin>>u>>v;
-        unionSet(u, v);
+        unite(u, v);
     }
 
     cin>>d;
     for(int i = 0;i<d;i++){
         int u,v ;
         cin>>u>>v;
-        disunionSet(u ,v);
+        dis_unite(u ,v);
     }
 
     int res = 0;
-    for(int i = 1;i<=n;i++){
+    for(int i = 1;i<=n;i++)
         res = max(res, sz[i]);
-    }
-    cout<<res<<el;
-
+    cout<<res;
     return 0;
 }

@@ -8,6 +8,7 @@
         "functional": "cpp",
         "cmath": "cpp",
         "span": "cpp",
-        "type_traits": "cpp"
+        "type_traits": "cpp",
+        "random": "cpp"
     }
 }
