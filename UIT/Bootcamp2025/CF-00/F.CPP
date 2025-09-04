@@ -7,8 +7,6 @@ using db = double;
 #define pii pair<int, int>
 #define fi first
 #define se second
-#pragma GCC optimize("O2,unroll-loops,no-stack-protector")
-#pragma GCC target("avx2,bmi,bmi2,popcnt,lzcnt")
 
 int calc(char open, char close) {
     if(open == '?' && close == '?') return 3;
@@ -37,25 +35,44 @@ int main(){
     string s;
     cin>>n>>s;
     s = '-' + s;
-    ll dp[205][205];
+
+    __int128 dp[n + 1][n + 1]; 
+    bool add0 = 0;
 
     for(int len = 2; len <= n; len++) {
+        if(len % 2) continue;
         for(int l = 1; l + len - 1 <= n; l++) {
             int r = l + len - 1;
-            if((len % 2) != 0) continue; 
+            __int128 res = 0;
 
-            ll res = 0;
             for(int k = l + 1; k <= r; k += 2) {
                 int cnt = calc(s[l], s[k]);
-                if(cnt > 0) {
-                    ll left = (l + 1 <= k - 1 ? dp[l + 1][k - 1] : 1);
-                    ll right = (k + 1 <= r ? dp[k + 1][r] : 1);
-                    res += 1LL * cnt * left % MOD * right % MOD;
-                }
+                if(cnt == 0) continue;
+                __int128 left  = (l + 1 <= k - 1 ? dp[l + 1][k - 1] : 1);
+                __int128 right = (k + 1 <= r ? dp[k + 1][r] : 1);
+
+                res += (__int128)cnt * left * right;
+                if(res > (__int128)1e18) res %= MOD * 10; 
             }
             dp[l][r] = res;
         }
     }
-    cout << dp[1][n] % MOD;
+
+    __int128 res = dp[1][n];
+    if(res >= MOD)
+        cout<<setw(5)<<setfill('0')<<(ll)(res % MOD);
+    else cout<<(ll)res;
     return 0;
 }
+
+// 182
+// ?[{}??[?{((??)[{{[[?????]?{?[[(([???]{?[????[[?]?({}(()[[?????}(?????{{?((?)))()})]((((??)???(??????((?????)?)??()(?)?((????)?)?((?(????)?)????)]]??]?]))??]????????]?]]????}?)????]??
+
+// 184
+// ({}{([[(?((()?(((()([?)[?[(?[??????)][][[??(([(?[]])]?()?][[?([?[]()?(()?))?[[[?(())]?[[?(?(()?](?[[?[[[(?()??[?[]]?[()[(())[?]]?]])]]?]?(((?)???)))?)))]]???]))?])))?]]?)??]))))??]])?)
+
+// 30
+// (?[[]??]??)?()?(?[?[?]?)??]???
+
+// 40
+// [(?(?(?{{??}(())(???(?}())?()?((???)?)?]
