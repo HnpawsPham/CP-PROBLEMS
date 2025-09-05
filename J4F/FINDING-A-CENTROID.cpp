@@ -1,10 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define vi vector<int>
 #define el "\n"
 
 int n;
-const int maxn = 2 * (int)1e5 + 5;
-vector<vector<int>> a(maxn);
+const int maxn = 2e5 + 5;
+vi a[maxn];
 int sz[maxn];
 
 void getsz(int u, int parent){
@@ -40,7 +41,6 @@ int main(){
     }
 
     getsz(1, 0);
-    cout<<getCen(1, 0)<<el;
-
+    cout<<getCen(1, 0);
     return 0;
 }
