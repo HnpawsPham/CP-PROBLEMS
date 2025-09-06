@@ -5,29 +5,24 @@ int n, m, c;
 const int maxn = 100001;
 int t[maxn] = {0};
 
-void update(int i, int del)
-{
-    while (i <= n)
-    {
+void update(int i, int del){
+    while (i <= n){
         t[i] += (t[i] + del) % c;
         i += (i & -i);
     }
+    return;
 }
 
-int sum(int i)
-{
+int sum(int i){
     int res = 0;
-    while (i > 0)
-    {
+    while (i > 0){
         res = (res + t[i]) % c;
         i -= (i & -i);
     }
-
     return res;
 }
 
-int main()
-{
+int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
@@ -49,6 +44,5 @@ int main()
 
         cout<<a[i]<<" ";
     }
-
     return 0;
 }
