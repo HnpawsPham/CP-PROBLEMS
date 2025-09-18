@@ -10,17 +10,18 @@ using db = double;
 
 int n;
 const int maxn = 2e5 + 5;
-int a[maxn], c[maxn];
+int a[maxn], w[maxn];
 ll dp[maxn];
 
 struct CHT{
     vector<pii> v;
     int id = 0;
-    bool check(pii a,pii b,pii c){
+    
+    bool check(pii a, pii b, pii c){
         return (b.se - a.se) * (a.fi - c.fi) >= (c.se - a.se) * (a.fi - b.fi);
     }
 
-    ll calc(pii y,int x){
+    ll calc(pii y, int x){
         return y.fi * x + y.se;
     }
 
@@ -44,10 +45,10 @@ int main(){
 
     cin>>n;
     for(int i = 0; i < n; i++) cin>>a[i];
-    for(int i = 0; i < n; i++) cin>>c[i];
+    for(int i = 0; i < n; i++) cin>>w[i];
     
     for(int i = 2; i <= n; i++){
-        hull.add({c[i - 1], dp[i - 1]});
+        hull.add({w[i - 1], dp[i - 1]});
         dp[i] = hull.get(a[i]);
     }
     cout<<dp[n];
