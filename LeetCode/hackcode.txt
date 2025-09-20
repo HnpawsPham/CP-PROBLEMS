@@ -1,4 +1,4 @@
-const auto UwU = [](){struct ___{static void _(){std::ofstream("display_runtime.txt")<<0<<'\n';}};std::atexit(___::_);return 0;}();
+auto UwU=atexit([](){ofstream("display_runtime.txt")<<"0";});
 
 #pragma GCC optimize("O3,unroll-loops,no-stack-protector")
 #pragma GCC target("avx2,bmi,bmi2,popcnt,lzcnt")
