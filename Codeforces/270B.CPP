@@ -19,7 +19,7 @@ int main(){
     for(int i = 0; i < n; i++) cin>>a[i];
 
     int len = 1;
-    for(int i = n - 2; i >= 0; i--){
+    for(int i = n - 2; i >= 0; i--){e:\DATA2\C++ PROBLEMS\J4F\1829C.CPP
         if(a[i] > a[i + 1]) break;
         len++;
     }
