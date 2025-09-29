@@ -1,3 +1,4 @@
+// MOD k can prime van ok O(n^2)
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -8,35 +9,17 @@ using db = double;
 #define fi first
 #define se second
 
-int tc, MOD;
 const int maxn = 5005;
-ll C[maxn][maxn]; //Cnk
+const int MOD = 1e9 + 7;
+ll C[maxn][maxn];
 
 void calc_comb(){
     for(int i = 0; i < maxn; i++){
-        C[i][0] = C[i][i] = 1;
-        for(int j = 1; j < i; j++)
+		C[i][0] = C[i][i] = 1;
+		for(int j = 1; j < i; j++)
             C[i][j] = (C[i - 1][j - 1] + C[i - 1][j]) % MOD;
-    }
+	}
     return;
-}
-
-ll sol(){
-    int n;
-    cin>>n;
-    int a[n];
-    int sum = 0;
-    for(int i = 0; i < n; i++) {
-        cin>>a[i];
-        sum += a[i];
-    }
-
-    ll res = 1;
-    for(int x : a){
-        res = res * C[sum][x] % MOD;
-        sum -= x;
-    }
-    return res;
 }
 
 int main(){
@@ -44,10 +27,7 @@ int main(){
     cin.tie(0);
     cout.tie(0);
 
-    cin>>tc>>MOD;
     calc_comb();
-    while(tc--){
-        cout<<sol()<<el;
-    }
+    cout<<C[3][2];
     return 0;
 }
