@@ -18,15 +18,15 @@ int main(){
     int a[n];
     for(int i = 0; i < n; i++) cin>>a[i];
 
-    int cnt = 1, prev = 0, res = 0;
-    for (int i = 1; i < n; ++i) {
-        if (a[i] > a[i - 1]) cnt++;
-        else {
-            prev = cnt;
-            cnt = 1;
+    int sz = 1, prevsz = 0;
+    for(int i = 1; i < n; i++){
+        if(a[i] > a[i - 1]) sz++;
+        else{
+            prevsz = sz;
+            sz = 1;
         }
-        res = max({res, cnt / 2, min(prev, cnt)});
+        if(sz / 2 >= k || min(sz, prevsz) >= k) return cout<<1, 0;
     }
-    cout<<(res >= k);
+    cout<<0;
     return 0;
 }
