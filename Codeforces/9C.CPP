@@ -24,19 +24,19 @@ int main(){
     cout.tie(0);
 
     cin>>n;
-    // for(int i = 1; ; i++){
-    //     string s;
-    //     int x = i;
-    //     while(x > 0){
-    //         s.push_back(x % 2 + '0');
-    //         x /= 2;
-    //     }
-    //     reverse(s.begin(), s.end());
+    for(int i = 1; ; i++){
+        string s;
+        int x = i;
+        while(x > 0){
+            s.push_back(x % 2 + '0');
+            x /= 2;
+        }
+        reverse(s.begin(), s.end());
 
-    //     if(stoll(s) > n) break;
-    //     cnt++;
-    // }
-    sol(1);
+        if(stoll(s) > n) break;
+        cnt++;
+    }
+    // sol(1);
     cout<<cnt;
     return 0;
 }
