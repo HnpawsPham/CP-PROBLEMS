@@ -60,9 +60,9 @@ void kruskal(){
         return;
     }
 
-    cout << msize << endl;
+    cout<<msize<<endl;
     for (auto l : mst)
-        cout << l.u << " " << l.v << " " << l.w << endl;
+        cout<<l.u<<" "<<l.v<<" "<<l.w<<endl;
 
     return;
 }
