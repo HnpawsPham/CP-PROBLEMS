@@ -27,12 +27,26 @@ int main(){
 
     cin>>x;
     string s = to_string(x);
-    ll t = (s[0] - '0') - 1;
+    int n = s.length();
     
-    for(int i = 1; i < s.size(); i++)
-        t = t * 10 + 9;
+    int maxx = sum(x);
+    ll res = x;
 
-    if(sum(t) > sum(x)) cout<<t;
-    else cout<<x;
+    for(int i = 0; i < n; i++){
+        string tmp = s;
+        tmp[i] = tmp[i] - '0' - 1 + '0';
+        for(int j = i + 1; j < n; j++)
+            tmp[j] = '9';
+        
+        ll cur = stoll(tmp);
+        int ssum = sum(cur);
+        if(ssum > maxx || (ssum == maxx && cur > res)){
+            maxx = ssum;
+            res = cur;
+        }
+    }
+    cout<<res;
     return 0;
 }
+
+// 39188
