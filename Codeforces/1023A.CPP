@@ -18,12 +18,18 @@ int main(){
     cout.tie(0);
 
     cin>>n>>m>>s>>t;
+    if(s == t) return cout<<"YES", 0;
     if(n - 1 > m) return cout<<"NO", 0;
 
     int l = 0, r = 0;
+    bool ok = 0;
+
     for(int i = 0; i < n; i++){
         if(s[i] != t[i]){
-            if(s[i] == '*') break;
+            if(s[i] == '*') {
+                ok = 1;
+                break;
+            }
             else return cout<<"NO", 0;
         }
         l++;
@@ -37,7 +43,7 @@ int main(){
         r++;
     }
 
-    if(l + r <= m) cout<<"YES";
+    if(ok && l + r <= m) cout<<"YES";
     else cout<<"NO";
     return 0;
 }
