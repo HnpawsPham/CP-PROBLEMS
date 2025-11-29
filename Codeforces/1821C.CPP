@@ -15,30 +15,27 @@ int sol(){
     string s;
     cin>>s;
     int n = s.length();
-    char maxcon = s[0];
-    int maxf = 1, cnt = 0;
-
-    for(int i = 1; i < n; i++){
-        if(s[i] == s[i - 1]) cnt++;
-        else cnt = 1;
-
-        if(cnt > maxf){
-            maxf = cnt;
-            maxcon = s[i];
+  
+    int res = n + 5;
+    for(char c = 'a'; c <= 'z'; c++){
+        int maxx = 0, diff = 0, sum = 0;
+        for(char x : s){ 
+            if(x != c) diff++;
+            else{
+                maxx = max(maxx, diff);
+                diff = 0;
+            }
         }
-    }
 
-    cnt = 0;
-    int res = 0;
-
-    for(int i = 0; i < n; i++){
-        if(s[i] != maxcon) cnt++;
-        else{
-            res = max(res, (cnt + 1) / 2);
-            cnt = 0;
+        maxx = max(maxx, diff);
+        int cnt = 0;
+        while(maxx > 0){
+            maxx /= 2;
+            cnt++;
         }
+        res = min(res, cnt);
     }
-    return max(res, (cnt + 1) / 2);
+    return res;
 }
 
 int main(){

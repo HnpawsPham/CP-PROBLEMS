@@ -20,35 +20,33 @@ int main(){
     int a[n];
     for(int i = 0; i < n; i++) cin>>a[i];
 
-    int f[n + 1] = {0}, left = 0;
+    int f[n + 1] = {0};
     for(int x : a) f[x]++;
-    for(int x : f) 
-        if(x > 1) left += x;
 
     queue<int> q;
-    for(int i = 1; i <= n; i++)
-        if(!f[i]) q.push(i);
-        
-    int i = 0, cnt = 0;
-    while(!q.empty()){
-        if(f[a[i]] <= 1) {
-            i++;
+    unordered_set<int> s;
+
+    for(int i = 1; i <= n; i++){
+        if(f[i] == 0) q.push(i);
+        s.insert(i);
+    }
+    cout<<q.size()<<el;
+
+    for(int i = 0; i < n && !q.empty(); i++){
+        if(f[a[i]] <= 1){
+            s.erase(a[i]);
             continue;
         }
 
-        if(q.front() <= a[i] || left <= q.size()){
+        if(q.front() < a[i] || s.count(a[i]) == 0){
             f[a[i]]--;
-            cnt++;
 
             a[i] = q.front();
             q.pop();
         }
-
-        left--;
-        i++;
+        s.erase(a[i]);
     }
 
-    cout<<cnt<<el;
     for(int x : a) cout<<x<<" ";
     return 0;
 }
