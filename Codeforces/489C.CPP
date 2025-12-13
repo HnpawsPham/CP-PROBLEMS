@@ -22,6 +22,27 @@ int main(){
     cout.tie(0);
 
     cin>>n>>s;
+    if((s > 9 * n) || (s == 0 && n > 1)) 
+        return cout<<-1<<" "<<-1, 0;
 
+    if(n == 1 && s == 0) return cout<<0<<" "<<0, 0;
+
+    string small(n, '0'), big;
+    int sum = s;
+    for(int i = 0; i < n; i++){
+        int x = min(sum, 9);
+        big.push_back(x + '0');
+        sum -= x;
+    }
+
+    sum = s - 1;
+    small[0] = '1';
+    for(int i = n - 1; i >= 0; i--){
+        int tmp = small[i] - '0';
+        int x = min(9 - tmp, sum);
+        small[i] = tmp + x + '0';
+        sum -= x;
+    }
+    cout<<small<<" "<<big;
     return 0;
 }
