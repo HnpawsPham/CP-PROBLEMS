@@ -8,12 +8,12 @@ using db = double;
 #define pii pair<int, int>
 #define fi first
 #define se second
-//#define taskname ""
+// #define taskname "tmp"
 
 int main(){
     #ifdef taskname
         freopen(taskname".INP", "r", stdin);
-        freopen(taskname".OUT", "w", stdout);
+        // freopen(taskname".OUT", "w", stdout);
     #endif
     ios::sync_with_stdio(0);
     cin.tie(0);
@@ -23,29 +23,31 @@ int main(){
     cin>>n;
     int a[n];
     for(int i = 0; i < n; i++) cin>>a[i];
-
+    
     vector<int> res;
     for(int x : a){
-        int cnt1 = __builtin_popcount(x);
-        int cnt0 = 0, num = x;
-        
         if(x == 2){
             res.push_back(-1);
             continue;
         }
         
-        for(int i = 0; i < cnt1; i++){
-            cnt0 += (num & 1);
+        int cnt1 = __builtin_popcount(x);
+        string s = bitset<30>(x).to_string();
+        int cnt0 = 0, num = x;
+        while(num){
+            cnt0 += !(num & 1);
             num >>= 1;
         }
 
         if(cnt0 == 0) res.push_back(x >> 1);
         else{
-            for(int i = 1; i < x; i++)
-                if((i | (i + 1)) == x){
-                    res.push_back(i);
+            string s = bitset<30>(x).to_string();
+            for(int i = 29; i > 0; i--)
+                if(s[i] == '0'){
+                    s[i + 1] = '0';
                     break;
                 }
+            res.push_back(bitset<30>(s).to_ulong());
         }
     }
 
