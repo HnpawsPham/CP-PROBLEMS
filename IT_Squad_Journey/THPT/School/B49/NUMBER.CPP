@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+using db = double;
+#define el '\n'
+#define vi vector<int>
+#define vll vector<ll>
+#define pii pair<int, int>
+#define fi first
+#define se second
+#define taskname "NUMBER"
+
+ll l, r;
+const int maxn = 1e7 + 5;
+bitset<maxn> nprime;
+vll num;
+
+void sieve(){
+    for(int i = 2; i * i < maxn; i++)
+        if(!nprime[i])
+            for(int j = i * i; j < maxn; j+=i)
+                nprime[j] = 1;
+    
+    for(int i = 2; i < maxn; i++)
+        if(!nprime[i]) num.push_back(1LL * i * i);
+    return;
+}
+
+int main(){
+    #ifdef taskname
+        freopen(taskname".INP", "r", stdin);
+        freopen(taskname".OUT", "w", stdout);
+    #endif
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    cin>>l>>r;
+    sieve();
+    cout<<upper_bound(num.begin(), num.end(), r) - lower_bound(num.begin(), num.end(), l);
+    return 0;
+}
