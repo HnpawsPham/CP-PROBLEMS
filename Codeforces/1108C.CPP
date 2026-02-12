@@ -10,24 +10,8 @@ using db = double;
 #define se second
 //#define taskname ""
 
-int tc = 1;
-const ll oo = 1e6 + 5;
-ll a, b;
-
-void sol(){
-    cin>>a>>b;
-
-    if(b == 1){
-        cout<<"NO";
-        return;
-    }
-
-    cout<<"YES"<<el;
-    if(b > 2)
-        cout<<a<<" "<<a * (b - 1)<<" "<<a * b;
-    else cout<<a<<" "<<a * b<<" "<<a * (b + 1);
-    return;
-}
+int n;
+string s;
 
 int main(){
     #ifdef taskname
@@ -38,10 +22,24 @@ int main(){
     cin.tie(0);
     cout.tie(0);
 
-    cin>>tc;
-    while(tc--){
-        sol();
-        cout<<el;
+    cin>>n>>s;
+    int res = n + 15;
+    string ss = s;
+
+    for(string pat : {"RGB", "RBG", "BRG", "BGR", "GBR", "GRB"}){
+        int cnt = 0;
+        string x = s;
+        for(int i = 0; i < n; i++)
+            if(x[i] != pat[i % 3]){
+                x[i] = pat[i % 3];
+                cnt++;
+            }
+        
+        if(cnt < res){
+            res = cnt;
+            ss = x;
+        }
     }
+    cout<<res<<el<<ss;
     return 0;
 }
