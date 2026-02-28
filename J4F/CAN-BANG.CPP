@@ -8,7 +8,9 @@ using db = double;
 #define pii pair<int, int>
 #define fi first
 #define se second
-//#define taskname ""
+#define taskname "BALANCE"
+
+int n;
 
 int main(){
     #ifdef taskname
@@ -19,11 +21,20 @@ int main(){
     cin.tie(0);
     cout.tie(0);
 
-    string s;
-    int k;
-    cin>>s>>k;
-    
-    int n = s.length();
+    cin>>n;
+    int a[n + 10];
+    for(int i = 1; i <= n; i++) cin>>a[i];
 
+    ll p[n + 1] = {0}, s[n + 2] = {0};
+    for(int i = 1; i <= n; i++)
+        p[i] = p[i - 1] + a[i];
+
+    for(int i = n; i > 0; i--)
+        s[i] = s[i + 1] + a[i];
+
+    ll dmin = 5e12 + 5;
+    for(int i = 1; i <= n; i++)
+        dmin = min(dmin, abs(p[i] - s[i + 1]));
+    cout<<dmin;
     return 0;
 }
