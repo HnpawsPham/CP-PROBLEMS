@@ -16,7 +16,7 @@ int main(){
     int n, m;
     cin>>n>>m;
 
-    if((n > m + 1) || (m > 2 * (n + 1))) return cout<<-1, 0;
+    if(n > m + 1 || m > 2 * (n + 1)) return cout<<-1, 0;
 
     string s = "";
     while(n > 0 || m > 0){
