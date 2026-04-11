@@ -25,7 +25,6 @@ int main(){
     for (int i = 1; i <= m; i++){
         int u, v;
         cin >> u >> v;
-
         a[u].push_back(v);
     }
 

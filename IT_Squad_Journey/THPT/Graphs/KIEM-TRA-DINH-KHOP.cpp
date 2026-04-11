@@ -74,9 +74,8 @@ void tarjan(int u, int parent){
                 return;
             }
         }
-        else if(v != parent){ // canh nguoc
+        else if(v != parent) // canh nguoc
             low[u] = min(low[u], index[v]);
-        }
     }
 
     if(parent == 0 && ans.size() > 1){ // dinh goc cua 1 thanh phan lien thong
