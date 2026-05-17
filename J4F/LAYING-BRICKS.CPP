@@ -10,6 +10,19 @@ using db = double;
 #define se second
 //#define taskname ""
 
+int tc = 1;
+
+int d(int u, int v){
+    if(u == 1) return v - 1;
+    return v - 1 + v - u;
+}
+
+int sol(){
+    int n, m, x, y;
+    cin>>n>>m>>y>>x;
+    return min(d(x, m), d(y, n));
+}
+
 int main(){
     #ifdef taskname
         freopen(taskname".INP", "r", stdin);
@@ -19,20 +32,9 @@ int main(){
     cin.tie(0);
     cout.tie(0);
 
-    int n;
-    string s;
-    cin>>n>>s;
-    int a[n];
-    for(int i = 0; i < n; i++) cin>>a[i];
-
-    const int oo = 1e9 + 5;
-    int r = oo, res = oo;
-    for(int i = 0; i < n; i++){
-        if(s[i] == 'L' && r != oo) 
-            res = min(res, (a[i] - r + 1) / 2);
-        else if(s[i] == 'R') 
-            r = a[i];
+    cin>>tc;
+    while(tc--){
+        cout<<sol()<<el;
     }
-    cout<<(res != oo ? res : -1);
     return 0;
 }

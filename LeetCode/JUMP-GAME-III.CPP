@@ -19,20 +19,30 @@ int main(){
     cin.tie(0);
     cout.tie(0);
 
-    int n;
-    string s;
-    cin>>n>>s;
+    int n, st;
+    cin>>n>>st;
     int a[n];
-    for(int i = 0; i < n; i++) cin>>a[i];
+    for(int i = 0; i < n ; i++) cin>>a[i];
 
-    const int oo = 1e9 + 5;
-    int r = oo, res = oo;
-    for(int i = 0; i < n; i++){
-        if(s[i] == 'L' && r != oo) 
-            res = min(res, (a[i] - r + 1) / 2);
-        else if(s[i] == 'R') 
-            r = a[i];
+    bool check[50005] = {0};
+    queue<int> q;
+    q.push(st);
+    
+    while(!q.empty()){
+        int u = q.front();
+        q.pop();
+
+        if(a[u] == 0) return cout<<1, 0;
+
+        for(int v : {u - a[u], u + a[u]}){
+            if(v < 0 || v == n || check[v]) continue;
+            q.push(v);
+            check[v] = 1;
+        }
     }
-    cout<<(res != oo ? res : -1);
+    cout<<0;
     return 0;
 }
+
+// 7 5
+// 4 2 3 0 3 1 2

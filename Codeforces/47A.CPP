@@ -20,19 +20,10 @@ int main(){
     cout.tie(0);
 
     int n;
-    string s;
-    cin>>n>>s;
-    int a[n];
-    for(int i = 0; i < n; i++) cin>>a[i];
-
-    const int oo = 1e9 + 5;
-    int r = oo, res = oo;
-    for(int i = 0; i < n; i++){
-        if(s[i] == 'L' && r != oo) 
-            res = min(res, (a[i] - r + 1) / 2);
-        else if(s[i] == 'R') 
-            r = a[i];
-    }
-    cout<<(res != oo ? res : -1);
+    cin>>n;
+    for(int i = 1; i <= 500; i++)
+        if(i * (i + 1) / 2 == n) 
+            return cout<<"YES", 0;
+    cout<<"NO";
     return 0;
 }
