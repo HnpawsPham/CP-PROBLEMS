@@ -10,6 +10,15 @@ using db = double;
 #define se second
 //#define taskname ""
 
+int tc = 1;
+
+int sol(){
+    int a, b, c, d;
+    cin>>a>>b>>c>>d;
+    int res = (a < b) + (a < c) + (a < d);
+    return res;
+}
+
 int main(){
     #ifdef taskname
         freopen(taskname".INP", "r", stdin);
@@ -19,14 +28,9 @@ int main(){
     cin.tie(0);
     cout.tie(0);
 
-    int n;
-    cin>>n;
-    string s;
-    cin>>s;
-    int sf = 0, fs = 0;
-    for(int i = 1; i < n; i++)
-        if(s[i] == 'S' && s[i - 1] == 'F') fs++;
-        else if(s[i] == 'F' && s[i - 1] == 'S') sf++;
-    cout<<(sf > fs ? "YES" : "NO");
+    cin>>tc;
+    while(tc--){
+        cout<<sol()<<el;
+    }
     return 0;
 }

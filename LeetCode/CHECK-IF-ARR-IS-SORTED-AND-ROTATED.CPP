@@ -21,12 +21,19 @@ int main(){
 
     int n;
     cin>>n;
-    string s;
-    cin>>s;
-    int sf = 0, fs = 0;
+    int a[n];
+    for(int i = 0; i < n; i++) cin>>a[i];
+
+    int cnt = 0;
     for(int i = 1; i < n; i++)
-        if(s[i] == 'S' && s[i - 1] == 'F') fs++;
-        else if(s[i] == 'F' && s[i - 1] == 'S') sf++;
-    cout<<(sf > fs ? "YES" : "NO");
+        if(a[i] < a[i - 1]) cnt++;
+    cnt += a[n - 1] > a[0];
+    cout<<(cnt <= 1);
     return 0;
 }
+
+// 5
+// 3 4 5 1 2
+
+// 4
+// 2 1 3 4
