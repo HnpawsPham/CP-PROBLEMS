@@ -21,25 +21,21 @@ int main(){
 
     int n, x;
     cin>>n>>x;
-    int a[n];
+    ll a[n];
     for(int i = 0; i < n; i++) cin>>a[i];
 
     const ll oo = 1e14 + 5;
-    ll sum = 0, maxx = -oo, minn = oo;
-    for(int i = 0; i < n; i++){
-        if(x < 0){
-            sum = min(1LL * a[i], sum + a[i]);
-            minn = min(minn, sum);
-        }
-        else{
-            sum = max(sum + a[i], 1LL * a[i]);
-            maxx = max(maxx, sum);
-        }
+    vector<vll> dp(n, vll(3, -oo));
+    dp[0][0] = a[0];
+    dp[0][1] = dp[0][2] = a[0] * x;
+    ll res = max(dp[0][0], max(dp[0][1], dp[0][2]));
+   
+    for(int i = 1; i < n; i++){
+        dp[i][0] = max(a[i], dp[i - 1][0] + a[i]);
+        dp[i][1] = max(dp[i - 1][0] + a[i] * x, max(dp[i - 1][1] + a[i] * x, a[i] * x));
+        dp[i][2] = max(dp[i - 1][1] + a[i], max(dp[i - 1][2] + a[i], a[i]));
+        res = max(max(res, dp[i][0]), max(dp[i][1], dp[i][2]));
     }
-
-    ll res = -oo;
-    if(maxx != -oo) res = max(maxx * 1LL * x, 1LL * *max_element(a, a + n));
-    if(minn != oo) res = max(minn * 1LL * x, res);
     cout<<res;
     return 0;
 }
