@@ -86,11 +86,11 @@ int main(){
         a.push_back({u, v, w});
     }
 
-    if(n <= 2005)
-        sub1::sol();
-    if(sub2::check())
-        sub2::sol();
-    else sub3::sol();
+    sub1::sol();
+
+    // if(sub2::check())
+    //     sub2::sol();
+    // else sub3::sol();
     return 0;
 }
 
