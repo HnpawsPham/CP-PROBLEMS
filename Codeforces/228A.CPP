@@ -19,7 +19,7 @@ int main(){
 
     int cnt = 0;
     for(int i = 1; i < 4; i++)
-        if(a[i] == a[i - 1]) cnt++;
+        cnt += (a[i] == a[i - 1]);
     cout<<cnt;
     return 0;
 }
