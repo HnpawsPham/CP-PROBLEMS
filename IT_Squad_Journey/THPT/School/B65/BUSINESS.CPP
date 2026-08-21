@@ -13,7 +13,8 @@ using db = double;
 int n, m, q;
 const int maxn = 1e5 + 5;
 const ll oo = 1e18;
-int a[maxn], b[maxn];
+int a[maxn];
+ll b[maxn];
 
 ll inc(ll old, ll d){
     if(oo - old < d)
@@ -28,6 +29,7 @@ ll dec(ll old, ll d){
 }
 
 ll mul(ll old, ll d){
+    if(d == 0) return 0;
     if(old > oo / d)
         return oo;
     return old * d;
@@ -42,7 +44,7 @@ struct BIT{
 
     void add(int i, ll val){
         while(i < maxn){
-            t[i] += inc(t[i], val);
+            t[i] = inc(t[i], val);
             i += (i & -i);
         }
     }
@@ -50,7 +52,7 @@ struct BIT{
     ll query(int i){
         ll res = 0;
         while(i > 0){
-            res += inc(res, t[i]);
+            res = inc(res, t[i]);
             i -= (i & -i);
         }
         return res;
@@ -59,7 +61,7 @@ struct BIT{
 
 namespace sub1{
     void sol(){
-        int res[n + 1];
+        int res[m + 1];
         memset(res, -1, sizeof res);
 
         ll p[m + 5];
@@ -71,7 +73,7 @@ namespace sub1{
             cin>>l>>r>>k>>d;
 
             for(int i = l; i <= r; i++)
-                p[a[i]] += inc(p[a[i]], inc(k, mul((i - l), d)));
+                p[a[i]] = inc(p[a[i]], inc(k, mul((i - l), d)));
 
             for(int i = 1; i <= m; i++)
                 if(res[i] == -1 && p[i] >= b[i])
