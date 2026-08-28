@@ -10,32 +10,38 @@ using db = double;
 #define se second
 //#define taskname ""
 
-int cnt[26], n;
+int cnt[26], n, mid;
 
-bool sol(int i, bool ok, const string& s, const string& t, string& res){
-    if(i == n) return ok;
+bool sol(int i, bool ok, const string& t, string& res){
+    if(i > mid){
+        string rs = res;
+        if(n % 2) rs.pop_back();
 
-    if(ok){
-        for(int j = 0; j < 26; j++){
-            while(cnt[j] > 0){
-                cnt[j]--;
-                res.push_back(j + 'a');
-            }
+        reverse(rs.begin(), rs.end());
+        string tmp = res + rs;
+
+        if(tmp > t){
+            res += rs;
+            return 1;
         }
-        return 1;
+        return 0;
     }
 
-    for(int x = t[i]; x <= 'z'; x++){
-        if(!cnt[x - 'a']) continue;
-        
-        cnt[x - 'a']--;
+    //center
+    int d = 2 - (i == mid && (n % 2));
+
+    for(char x = (ok ? 'a' : t[i]); x <= 'z'; x++){
+        if(cnt[x - 'a'] < d) continue;
+        cnt[x - 'a'] -= d;
         res.push_back(x);
 
-        if(sol(i + 1, ok || x > t[i], s, t, res)) 
+        if(sol(i + 1, ok || x > t[i], t, res))
             return 1;
 
         res.pop_back();
-        cnt[x - 'a']++;
+        cnt[x - 'a'] += d;
+
+        if(ok) break;
     }
     return 0;
 }
@@ -53,17 +59,18 @@ int main(){
     cin>>s>>t;
 
     n = s.length();
+    mid = (n - 1) / 2;
+
     memset(cnt, 0, sizeof cnt);
     for(const char& x : s)
         cnt[x - 'a']++;
 
     string res = "";
-    if(sol(0, 0, s, t, res))
+    if(sol(0, 0, t, res))
         return cout<<res, 0;
     cout<<"";
     return 0;
 }
 
-// abc bba
-// leet code
+// baba abba
 // baba bbaa
