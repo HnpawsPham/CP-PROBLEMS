@@ -10,6 +10,15 @@ using db = double;
 #define se second
 //#define taskname ""
 
+int tc = 1;
+
+int sol(){
+    int m, n;
+    cin>>m>>n;
+    if(m == 1) return 1;
+    return (n / 3 * 2 + (n % 3 > 0));
+}
+
 int main(){
     #ifdef taskname
         freopen(taskname".INP", "r", stdin);
@@ -19,23 +28,9 @@ int main(){
     cin.tie(0);
     cout.tie(0);
 
-    int n;
-    cin>>n;
-    int a[n];
-    for(int i = 0; i < n; i++) cin>>a[i];
-
-    int pos1 = 0, pos2 = 0;
-    for(int i = 0; i < n; i++){
-        if(a[i] > a[pos2]) 
-            pos2 = i;
-        if(a[i] < a[pos1])
-            pos1 = i;
+    cin>>tc;
+    while(tc--){
+        cout<<sol()<<el;
     }
-
-    if(pos1 > pos2) swap(pos1, pos2);
-    cout<<min(pos2 + 1, min(n - pos1, pos1 + 1 + n - pos2));
     return 0;
 }
-
-// 8
-// 2 10 7 5 4 1 8 6
