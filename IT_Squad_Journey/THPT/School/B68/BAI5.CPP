@@ -75,7 +75,6 @@ int main(){
         res += hull[i].x * hull[j].y - hull[j].x * hull[i].y;
     }
     
-    
     cout<<m<<el;
     cout<<fixed<<setprecision(1)<<(db)(abs(res) / 2.0)<<el;
 
