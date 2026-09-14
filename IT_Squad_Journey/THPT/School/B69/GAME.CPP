@@ -29,7 +29,7 @@ namespace sub1{
     }
 }
 
-namespace sub3{
+namespace sub2{
     const int maxn = 5005;
     int dp[maxn][maxn], p[maxn];
 
@@ -37,11 +37,14 @@ namespace sub3{
         memset(dp, 0, sizeof dp);
         dp[0][0] = 1;
 
-        for(int x = 0; x <= k; x++){
-            for(int j = 1; j <= m; j++)
-                for(int i = x; i <= n; i++)
-                    dp[i][j] = (dp[i][j] + dp[i - x][j - 1]) % MOD;
-        }
+        for(int j = 1; j <= m; j++)
+            for(int i = 0; i <= n; i++){
+                dp[i][j] = dp[i][j -1];
+                if(i - j >= 0)
+                    dp[i][j] = (dp[i][j] + dp[i - j][j]) % MOD;
+                if(i - j - k >= 0)
+                    dp[i][j] = (dp[i][j] - dp[i - j - k][j - 1] + MOD) % MOD;
+            }        
         cout<<dp[n][m];
     }
 }
@@ -56,6 +59,8 @@ int main(){
     cout.tie(0);
 
     cin>>n>>m>>k;
-    if(n <= 205) sub1::sol();
+    // if(n <= 205) sub1::sol();
+    // else sub2::sol();
+    sub2::sol();
     return 0;
 }
