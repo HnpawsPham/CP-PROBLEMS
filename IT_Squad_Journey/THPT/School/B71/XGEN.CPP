@@ -14,11 +14,10 @@ int n, q, cnt = 0, t = 0;
 const int maxn = 2e5 + 5;
 const int LOG = 18;
 string a[maxn];
-pii que[maxn];
-int child[maxn][26], same[maxn], id[maxn];
+int child[maxn][26], id[maxn];
 int h[maxn], p[maxn][LOG + 1], in[maxn];
 
-void add(string& s){
+void add(string& s, int pos){
     int u = 0;
     int n = s.length();
 
@@ -27,8 +26,8 @@ void add(string& s){
         if(!child[u][k])
             child[u][k] = ++cnt;
         u = child[u][k];
-        same[u]++;
     }
+    id[pos] = u;
 }
 
 void dfs(int u, int parent){
@@ -45,12 +44,11 @@ void dfs(int u, int parent){
 }
 
 void prep(){
-    h[0] = -1;
-    p[1][0] = 0;
-    dfs(1, 0);
+    h[0] = 0;
+    dfs(0, 0);
 
     for(int j = 1; j <= LOG; j++)
-        for(int i = 1; i <= n; i++)
+        for(int i = 1; i < maxn; i++)
             p[i][j] = p[p[i][j - 1]][j - 1];
 }
 
@@ -75,20 +73,6 @@ bool comp(int a, int b){
     return in[id[a]] < in[id[b]];
 }
 
-namespace sub3{
-    bool checksub = 1;
-
-    void sol(){
-        for(const auto& [k, m] : que){
-            int sub[m];
-            for(int i =0; i < m; i++)  
-                cin>>sub[i];
-            
-            sort(sub, sub + m, comp);
-        }
-    }
-}
-
 int main(){
     #ifdef taskname
         freopen(taskname".INP", "r", stdin);
@@ -100,19 +84,29 @@ int main(){
 
     cin>>n>>q;
     memset(child, 0, sizeof child);
-    memset(same, 0, sizeof same);
+
     for(int i = 1; i <= n; i++){
         cin>>a[i];
-        add(a[i]);
+        add(a[i], i);
     }
+    prep();
 
-    for(int i = 0; i < q; i++){
-        cin>>que[i].fi>>que[i].se;
-        if(que[i].fi != que[i].se)
-            sub3::checksub = 0;
+    while(q--){
+        int k, m;
+        cin>>m>>k;
+
+        int sub[m];
+        for(int i =0; i < m; i++)  
+            cin>>sub[i];
+        
+        // sub3
+        if(k == m){
+            sort(sub, sub + m, comp);
+            cout<<h[lca(id[sub[0]], id[sub[m - 1]])]<<el;
+        }
+        else{
+            
+        }
     }
-
-    // if(sub3::checksub) sub3::sol();
-    sub3::sol();
     return 0;
 }
