@@ -15,7 +15,7 @@ const int maxn = 2e5 + 5;
 const int LOG = 18;
 string a[maxn];
 int child[maxn][26], id[maxn];
-int h[maxn], p[maxn][LOG + 1], in[maxn];
+int h[maxn], p[maxn][LOG + 1], in[maxn], out[maxn];
 
 void add(string& s, int pos){
     int u = 0;
@@ -41,6 +41,7 @@ void dfs(int u, int parent){
         p[v][0] = u;
         dfs(v, u);
     }
+    out[u] = t;
 }
 
 void prep(){
@@ -71,6 +72,10 @@ int lca(int u, int v){
 
 bool comp(int a, int b){
     return in[id[a]] < in[id[b]];
+}
+
+bool inside(int u, int v){
+    return (in[u] <= in[v] && out[v] <= out[u]);
 }
 
 int main(){
@@ -104,8 +109,27 @@ int main(){
             sort(sub, sub + m, comp);
             cout<<h[lca(id[sub[0]], id[sub[m - 1]])]<<el;
         }
+        // sub4
         else{
+            vi pre;
+            for(int i = 0; i < m; i++)
+                for(int j = 0; j < m; j++)
+                    if(i != j) pre.push_back(lca(id[sub[i]], id[sub[j]]));
+
+            sort(pre.begin(), pre.end(), comp);
+            pre.erase(unique(pre.begin(), pre.end()), pre.end());
             
+            ll res = 0;
+            int cnt1 = 0, cnt2;
+            for(int u : pre){
+                for(int v : sub){
+                    if(inside(u, v)) cnt1++;
+                    if(u && inside(p[u][0], v)) cnt2++;
+                }
+                if(cnt1 == k && cnt2 != k)
+                    res += h[u] - h[p[u][0]];
+            }
+            cout<<res<<el;
         }
     }
     return 0;
