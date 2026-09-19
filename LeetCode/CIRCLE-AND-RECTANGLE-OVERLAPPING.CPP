@@ -6,17 +6,9 @@ using db = double;
 #define vi vector<int>
 #define vll vector<ll>
 #define pii pair<int, int>
-#define pli pair<ll, int>
 #define fi first
 #define se second
-#define taskname "GREEN"
-
-int n, m, k;
-const int maxn = 1e5 + 5;
-vector<pli> a[maxn];
-bool ez[maxn];
-int from[maxn], to[maxn]; 
-
+//#define taskname ""
 
 int main(){
     #ifdef taskname
@@ -27,16 +19,17 @@ int main(){
     cin.tie(0);
     cout.tie(0);
 
-    cin>>n>>m>>k;
-    while(m--){
-        int u, v, w;
-        cin>>u>>v>>w;
-        a[u].push_back({w, v});
-        a[v].push_back({w, u});
-    }
-    
-    cin>>from[1]>>to[1];
-    for(int i = 2; i <= k; i++)
-        cin>>ez[i]>>from[i]>>to[i];
+    int r, cx, cy, sx1, sy1, sx2, sy2;
+    cin>>r>>cx>>cy>>sx1>>sy1>>sx2>>sy2;
+
+    int mindx = 0, mindy = 0;
+    if(cx < sx1) mindx = sx1 - cx;
+    else if(cx > sx2) mindx = cx - sx2;
+    if(cy < sy1) mindy = sy1 - cy;
+    else if(cy > sy2) mindy = cy - sy2;
+
+    cout<<(mindx * mindx + mindy * mindy <= r * r);
     return 0;
 }
+
+// 1 0 0 1 -1 3 1

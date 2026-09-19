@@ -20,10 +20,14 @@ namespace sub2{
         while(q--){
             int l, r;
             cin>>l>>r;
-            int minn = oo;
+            vi b;
             for(int i = l; i <= r; i++)
-                for(int j = i + 1; j <= r; j++)
-                    minn = min(minn, abs(a[i] - a[j]));
+                b.push_back(a[i]);
+            sort(b.begin(), b.end());
+
+            int minn = oo;
+            for(int i = 1; i < r - l + 1; i++)
+                minn = min(minn, b[i] - b[i - 1]);
             cout<<minn<<el;
         }
     }
@@ -34,15 +38,7 @@ namespace sub4{
         while(q--){
             int l, r;
             cin>>l>>r;
-            vi b;
-            for(int i = l; i <= r; i++)
-                b.push_back(a[i]);
-            sort(b.begin(), b.end());
-
-            int minn = oo, sz = r - l + 1;
-            for(int i = 1; i < sz; i++)
-                minn = min(minn, a[i] - a[i - 1]);
-            cout<<minn<<el;
+   
         }
     }
 }
@@ -59,8 +55,8 @@ int main(){
     cin>>n>>q;
     for(int i = 1; i <= n; i++) cin>>a[i];
 
-    if(n <= 1000 && q <= 1000)
+    // if(n <= 1000 && q <= 1000)
         sub2::sol();
-    else sub4::sol();
+    // else sub4::sol();
     return 0;
 }

@@ -71,7 +71,7 @@ int lca(int u, int v){
 }
 
 bool comp(int a, int b){
-    return in[id[a]] < in[id[b]];
+    return in[a] < in[b];
 }
 
 bool inside(int u, int v){
@@ -112,22 +112,33 @@ int main(){
         // sub4
         else{
             vi pre;
-            for(int i = 0; i < m; i++)
+            for(int i = 0; i < m; i++){
+                pre.push_back(id[sub[i]]);
                 for(int j = 0; j < m; j++)
                     if(i != j) pre.push_back(lca(id[sub[i]], id[sub[j]]));
+            }
 
             sort(pre.begin(), pre.end(), comp);
             pre.erase(unique(pre.begin(), pre.end()), pre.end());
             
             ll res = 0;
-            int cnt1 = 0, cnt2;
-            for(int u : pre){
-                for(int v : sub){
-                    if(inside(u, v)) cnt1++;
-                    if(u && inside(p[u][0], v)) cnt2++;
+            int sz = pre.size();
+
+            for(int i = 0; i < sz; i++){
+                int u = pre[i];
+                int cnt1 = 0;
+                for(int v : sub)
+                    if(inside(u, id[v])) cnt1++;
+
+                if(cnt1 == k){
+                    int anc = -1;
+                    for(int j = 0; j < i; j++)
+                        if(inside(pre[j], u)){
+                            if(anc == -1 || h[pre[j]] > h[anc])
+                                anc = pre[j];
+                        }
+                    res += h[u] - (anc == -1 ? 0 : h[anc]);
                 }
-                if(cnt1 == k && cnt2 != k)
-                    res += h[u] - h[p[u][0]];
             }
             cout<<res<<el;
         }

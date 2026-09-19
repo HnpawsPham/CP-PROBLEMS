@@ -38,14 +38,16 @@ int main(){
             cin>>a[i][j];
 
     int sz = (1 << m);
-    for(int i = 1; i <= n; i++)
-        for(int j = 0; j < sz; j++){
-            ll sum = 0;
-            for(int x = 0; x < m; x++)
-                if(j & (1 << x)) 
-                    sum += a[i][x];
-            maxx[j] = max(maxx[j], sum);
+    for(int i = 1; i <= n; i++){
+        ll sum[sz];
+        memset(sum, 0, sizeof sum);
+
+        for(int j = 1; j < sz; j++){
+            int x = __builtin_ctz(j);
+            sum[j] = sum[j ^ (1 << x)] + a[i][x];
+            maxx[j] = max(maxx[j], sum[j]);
         }
+    }
 
     ll res = 0;
     for(int mask1 = 0; mask1 < sz; mask1++){
