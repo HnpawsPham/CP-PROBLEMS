@@ -8,7 +8,7 @@ using db = double;
 #define pii pair<int, int>
 #define fi first
 #define se second
-//#define taskname "CAU5"
+#define taskname "CAU5"
 
 int main(){
     #ifdef taskname
