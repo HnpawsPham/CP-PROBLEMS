@@ -8,17 +8,17 @@ using db = double;
 #define fi first
 #define se second
 
-int res = 1e9;
 const int oo = 1e6 + 5;
 unordered_map<string, int> mp;
+
+int n, w;
+string s;
 
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
 
-    int n, w;
-    string s;
     cin>>n;
     pis a[n];
     for(int i = 0; i < n; i++){
@@ -30,6 +30,7 @@ int main(){
         mp[s] = min(mp[s], w);
     }
 
+    int res = oo;
     for(const string& s : {"A", "B", "C", "AB", "BC", "AC", "ABC"})
         if(!mp.count(s)) mp[s] = oo;
 
