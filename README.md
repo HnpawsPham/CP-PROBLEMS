@@ -1,3 +1,3 @@
 Repo info: <br>
--> 2821 files .cpp <br>
--> 27 files .py
+-> {{CPP_COUNT}} files .cpp <br>
+-> {{PY_COUNT}} files .py
