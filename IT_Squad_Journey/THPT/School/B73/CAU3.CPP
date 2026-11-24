@@ -11,7 +11,7 @@ using db = double;
 #define taskname "CAU3"
 
 int n;
-const int maxn = 3e5;
+const int maxn = 1500 * 1500 + 5;
 int a[maxn];
 
 int main(){
@@ -24,6 +24,7 @@ int main(){
     cout.tie(0);
 
     cin>>n;
+    memset(a, 0, sizeof a);
     for(int i = 0; i < n * n; i++)
         cin>>a[i];
 
@@ -33,11 +34,11 @@ int main(){
 
     ll sum = 0;
     for(const pii& x : mp)
-        sum += 1LL * x.fi * x.se;
+        sum += 1LL * x.fi * 1LL * x.se;
 
     ll res = 0;
     for(int i = 0; i < n * n; i++)
-        res = max(res, sum - 1LL * a[i] * mp[a[i]]);
+        res = max(res, sum - 1LL * a[i] * 1LL * mp[a[i]]);
     cout<<res;
     return 0;
 }
