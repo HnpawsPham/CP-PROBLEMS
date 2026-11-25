@@ -8,9 +8,6 @@ using db = double;
 #define fi first
 #define se second
 
-string s;
-int x;
-
 int main(){
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
@@ -18,6 +15,8 @@ int main(){
     cin.tie(0);
     cout.tie(0);
 
+    string s;
+    int x;
     cin>>s>>x;
     char res;
     if(s == "front"){
